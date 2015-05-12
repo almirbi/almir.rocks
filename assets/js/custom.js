@@ -153,7 +153,7 @@
                     $.ajax({
                         type: "POST",
                         url: url,
-                        data: $("#idForm").serialize(),
+                        data: $("#contact-form").serialize(),
                         success: function(data)
                         {
                             $('#contact-form .ajax-hidden').fadeOut(500);
