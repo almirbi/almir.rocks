@@ -1274,6 +1274,7 @@ span.heart-wrapper {
     }
 }
 
-video.fillWidth {
-    width: 100%;
+#portfolio .modal {
+    left: 10%;
+    right: 10%;
 }
