@@ -1277,3 +1277,7 @@ span.heart-wrapper {
     left: 10%;
     right: 10%;
 }
+
+video {
+    max-width: 100%;
+}
