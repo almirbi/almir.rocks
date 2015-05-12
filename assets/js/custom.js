@@ -147,8 +147,22 @@
 			}
 
 			else {				
-				    $('#contact-form .ajax-hidden').fadeOut(500);
-				    response.html("Message Sent. I will contact you asap. Thanks.").fadeIn(500);
+
+                    var url = "assets/php/handleFormSubmit.php";
+
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $("#idForm").serialize(),
+                        success: function(data)
+                        {
+                            $('#contact-form .ajax-hidden').fadeOut(500);
+                            response.html(data).fadeIn(500);
+                        }
+                    });
+
+                    return false;
+
 				}
             
             	return false;
