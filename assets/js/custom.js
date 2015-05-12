@@ -32,6 +32,59 @@
 			}
 		});
 
+        /* ---------------------------------------------- /*
+         * Smooth scroll / Scroll To Top
+         /* ---------------------------------------------- */
+        $('a').click(function() {
+            ga('send', 'event', 'link', 'click', {'page': $(this).attr('href')});
+        });
+
+        $('#hire-me').click(function() {
+            ga('send', 'event', 'link', 'click', {'page': 'hire me'});
+        });
+
+        $('#services').waypoint(function(){
+            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            console.log('sent scroll');
+        },{offset:'80%',triggerOnce: true});
+
+        $('#portfolio').waypoint(function(){
+            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            console.log('sent scroll');
+        },{offset:'80%',triggerOnce: true});
+
+        $('#skills').waypoint(function(){
+            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            console.log('sent scroll');
+        },{offset:'80%',triggerOnce: true});
+
+        $('#calltoaction').waypoint(function(){
+            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            console.log('sent scroll');
+        },{offset:'80%',triggerOnce: true});
+
+        $('#testimonials').waypoint(function(){
+            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            console.log('sent scroll');
+        },{offset:'80%',triggerOnce: true});
+
+        $('#about').waypoint(function(){
+            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            console.log('sent scroll');
+        },{offset:'80%',triggerOnce: true});
+
+        $('#contact').waypoint(function(){
+            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            console.log('sent scroll');
+        },{offset:'80%',triggerOnce: true});
+
+        $('#footer').waypoint(function(){
+            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            console.log('sent scroll');
+        },{offset:'80%',triggerOnce: true});
+
+
+
 		/* ---------------------------------------------- /*
 		 * Navbar
 		/* ---------------------------------------------- */
