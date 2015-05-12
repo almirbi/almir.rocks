@@ -369,6 +369,7 @@ textarea.form-control {
 		 -o-background-size: cover;
 			background-size: cover;
 	padding: 0;
+    overflow: hidden;
 }
 
 .home-overlay {
@@ -995,6 +996,10 @@ figure.effect-bubba:hover p {
     margin: 0 auto;
 }
 
+.portfolio-modal {
+    margin-top: 80px;
+}
+
 #portfolio .portfolio-item .portfolio-link .caption {
     position: absolute;
     width: 100%;
@@ -1042,6 +1047,7 @@ figure.effect-bubba:hover p {
 span.heart-wrapper {
     min-width: 180px;
     display: inline-block;
+    margin: 10px;
 }
 
 .skills .heart {
@@ -1119,7 +1125,7 @@ span.heart-wrapper {
     border-radius: 100%;
     text-align: center;
     color: #fff;
-    background-color: #fed136;
+    background-color: #f5f5f5;
 }
 
 .timeline>li .timeline-image h4 {
@@ -1251,4 +1257,8 @@ span.heart-wrapper {
     .timeline>li.timeline-inverted>.timeline-panel {
         padding: 0 100px 20px 20px;
     }
+}
+
+video.fillWidth {
+    width: 100%;
 }
