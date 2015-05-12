@@ -1055,6 +1055,21 @@ span.heart-wrapper {
     width: 40px;
 }
 
+@media(max-width:623px) {
+    .skills .pfblock-subtitle .heart {
+        width: 20px;
+    }
+
+    .pfblock-subtitle span.heart-wrapper {
+        min-width: 100px;
+    }
+}
+@media(max-width:680px) {
+    .skills-row {
+        margin-bottom: 40px;
+    }
+}
+
 .skills > .row {
     margin-top: 50px;
 }
