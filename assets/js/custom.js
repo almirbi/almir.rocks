@@ -149,11 +149,12 @@
 			else {				
 
                     var url = "assets/php/handleFormSubmit.php";
-
                     $.ajax({
                         type: "POST",
                         url: url,
+                        dataType: 'json',
                         data: $("#contact-form").serialize(),
+
                         success: function(data)
                         {
                             $('#contact-form .ajax-hidden').fadeOut(500);
