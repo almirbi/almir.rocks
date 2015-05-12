@@ -157,7 +157,7 @@
                         success: function(data)
                         {
                             $('#contact-form .ajax-hidden').fadeOut(500);
-                            response.html(data).fadeIn(500);
+                            response.html(data.message).fadeIn(500);
                         }
                     });
 
