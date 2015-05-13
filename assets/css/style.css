@@ -1281,3 +1281,38 @@ span.heart-wrapper {
 video {
     max-width: 100%;
 }
+
+#personal img.big {
+    width: 100%;
+    max-width: 220px;
+}
+
+#personal img.small {
+    width: 40%;
+    max-width: 220px;
+}
+
+#personal {
+    background-color: rgb(34, 34, 34);
+}
+
+#personal h2 {
+    color: white;
+}
+
+@media(min-width: 768px) {
+    .center-icon {
+        display: table-cell;
+        vertical-align: middle;
+        float: none;
+    }
+}
+
+li.timeline-inverted:last-child .timeline-image {
+    border-color: #E87A75;
+    background-color: #444;
+}
+
+li.timeline-inverted:last-child .timeline-image h4 {
+    color: white;
+}
