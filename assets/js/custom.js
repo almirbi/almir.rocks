@@ -36,50 +36,50 @@
          * Smooth scroll / Scroll To Top
          /* ---------------------------------------------- */
         $('a').click(function() {
-            ga('send', 'event', 'link', 'click', {'page': $(this).attr('href')});
+            ga('send', 'event', 'click', 'click', $(this).attr('href'));
         });
 
         $('#hire-me').click(function() {
-            ga('send', 'event', 'link', 'click', {'page': 'hire me'});
+            ga('send', 'event', 'link', 'click', 'hire me');
         });
 
         $('#services').waypoint(function(){
-            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            ga('send', 'event', 'scroll', 'reached', 'services' );
             console.log('sent scroll');
         },{offset:'80%',triggerOnce: true});
 
         $('#portfolio').waypoint(function(){
-            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            ga('send', 'event', 'scroll', 'reached', 'portfolio');
             console.log('sent scroll');
         },{offset:'80%',triggerOnce: true});
 
         $('#skills').waypoint(function(){
-            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            ga('send', 'event', 'scroll', 'reached', 'skills');
             console.log('sent scroll');
         },{offset:'80%',triggerOnce: true});
 
         $('#calltoaction').waypoint(function(){
-            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            ga('send', 'event', 'scroll', 'reached', 'call to action' );
             console.log('sent scroll');
         },{offset:'80%',triggerOnce: true});
 
         $('#testimonials').waypoint(function(){
-            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            ga('send', 'event', 'scroll', 'reached', 'testimonials' );
             console.log('sent scroll');
         },{offset:'80%',triggerOnce: true});
 
         $('#about').waypoint(function(){
-            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            ga('send', 'event', 'scroll', 'reached', 'timeline');
             console.log('sent scroll');
         },{offset:'80%',triggerOnce: true});
 
         $('#contact').waypoint(function(){
-            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+            ga('send', 'event', 'scroll', 'reached', 'contact' );
             console.log('sent scroll');
         },{offset:'80%',triggerOnce: true});
 
-        $('#footer').waypoint(function(){
-            ga('send', 'event', 'scroll', 'reached', {'section': 'skills'} );
+        $('#personal').waypoint(function(){
+            ga('send', 'event', 'scroll', 'reached', 'personal');
             console.log('sent scroll');
         },{offset:'80%',triggerOnce: true});
 
