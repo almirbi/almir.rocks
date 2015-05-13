@@ -36,7 +36,7 @@
          * Smooth scroll / Scroll To Top
          /* ---------------------------------------------- */
         $('a').click(function() {
-            ga('send', 'event', 'click', 'click', $(this).attr('href'));
+            ga('send', 'event', 'portfolio', 'click', $(this).attr('href'));
         });
 
 		/* ---------------------------------------------- /*
@@ -52,50 +52,14 @@
 			offset: 70
 		})
 
-        
-        /* ---------------------------------------------- /*
-		 * Skills
-        /* ---------------------------------------------- */    
-        //var color = $('#home').css('backgroundColor');
-
-        $('.skills').waypoint(function(){
-            $('.chart').each(function(){
-                $(this).easyPieChart({
-                        size:140,
-                        animate: 2000,
-                        lineCap:'butt',
-                        scaleColor: false,
-                        barColor: '#FF5252',
-                        trackColor: 'transparent',
-                        lineWidth: 10
-                    });
-            });
-        },{offset:'80%'});
-        
+       
         
         /* ---------------------------------------------- /*
 		 * Quote Rotator
 		/* ---------------------------------------------- */
        
 			$( function() {
-				/*
-				- how to call the plugin:
-				$( selector ).cbpQTRotator( [options] );
-				- options:
-				{
-					// default transition speed (ms)
-					speed : 700,
-					// default transition easing
-					easing : 'ease',
-					// rotator interval (ms)
-					interval : 8000
-				}
-				- destroy:
-				$( selector ).cbpQTRotator( 'destroy' );
-				*/
-
 				$( '#cbp-qtrotator' ).cbpQTRotator();
-
 			} );
 		
         
