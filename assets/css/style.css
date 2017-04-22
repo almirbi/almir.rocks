@@ -386,6 +386,7 @@ textarea.form-control {
   text-align: center;
   padding: 40px 20px;
   margin: 0 0 20px;
+  min-height: 282px;
   box-shadow: 5px 5px 6px rgba(0, 0, 0, 0.2); }
 
 .iconbox-icon {
