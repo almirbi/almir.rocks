@@ -50,8 +50,8 @@ span.annotated-comment.subtitle {
   font-weight: 500; }
 
 span.annotated-comment.javascript {
-  transform: rotate(-40deg);
-  transform-origin: left;
+  transform-origin: 0 0;
+  transform: rotate(40deg) translate(-150px, 100px);
   font-size: 20px; }
 
 span.annotated-comment.stockholm {
@@ -382,8 +382,7 @@ textarea.form-control {
  * Servise
 /* ---------------------------------------------- */
 .iconbox {
-  background: #607D8B;
-  border-bottom: 1px solid #bdbdbd;
+  background: #dadada;
   text-align: center;
   padding: 40px 20px;
   margin: 0 0 20px;
