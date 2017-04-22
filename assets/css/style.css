@@ -227,7 +227,7 @@ textarea.form-control {
 /* ---------------------------------------------- */
 .pfblock {
   padding: 120px 0 100px;
-  background: #BDBDBD; }
+  background: white; }
 
 .pfblock-gray {
   background: #BDBDBD;
@@ -382,7 +382,7 @@ textarea.form-control {
  * Servise
 /* ---------------------------------------------- */
 .iconbox {
-  background: #dadada;
+  background: #b1fdf6;
   text-align: center;
   padding: 40px 20px;
   margin: 0 0 20px;
@@ -485,7 +485,7 @@ textarea.form-control {
   position: relative;
   width: 100%;
   z-index: 998;
-  background-color: #607D8B; }
+  background-color: #009688; }
 
 .navbar-custom {
   border: 0;
