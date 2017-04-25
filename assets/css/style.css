@@ -28,7 +28,7 @@ span.annotated-comment {
   color: #F44336;
   font-size: 16px;
   position: absolute;
-  z-index: 1000; }
+  z-index: 100; }
   span.annotated-comment > span {
     display: block;
     padding: 10px 0; }
@@ -63,10 +63,48 @@ span.strikethrough {
   outline: 1px solid red;
   outline-offset: -12px; }
 
-div.icon {
-  width: 80px;
-  padding: 10px;
-  display: inline-block; }
+div.icons {
+  text-align: center; }
+  div.icons div.icon {
+    margin: 10px;
+    width: 90px;
+    height: 90px;
+    padding: 15px;
+    display: inline-block;
+    border-radius: 100%;
+    border: 1px solid transparent;
+    text-align: center;
+    vertical-align: middle;
+    transition: opacity 0.5s ease; }
+
+div.pad-wrapper {
+  width: 100%;
+  height: 20px;
+  position: relative;
+  margin-top: 230px; }
+  div.pad-wrapper #pad {
+    position: absolute;
+    width: 100px;
+    border-radius: 20px;
+    left: 50%;
+    margin-left: -50px;
+    height: 20px;
+    background: #1f1f1f;
+    cursor: pointer; }
+
+#game-wrapper {
+  position: relative;
+  display: block;
+  transition: border-top-color 0.8s ease, border-right-color 0.8s ease, border-left-color 0.8s ease;
+  border: 1px solid transparent; }
+  #game-wrapper #ball {
+    position: absolute;
+    background: #FFC107;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    left: 50%;
+    bottom: 20px; }
 
 /* ---------------------------------------------- /*
  * Transition elsements
@@ -1127,8 +1165,10 @@ li.timeline-inverted:last-child .timeline-image {
 li.timeline-inverted:last-child .timeline-image h4 {
   color: white; }
 
-.icons {
-  display: none; }
+#myGameCanvas {
+  display: block;
+  margin: 0 auto;
+  width: 100%; }
 
 @media (min-width: 321px) {
   .intro {
