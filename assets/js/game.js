@@ -3,7 +3,7 @@ class Game {
     this.ball = document.getElementById("ball");
     this.pad = document.getElementById("pad");
     this.gameWindow = document.getElementById("game-wrapper");
-    this.bricks = jQuery("#game-wrapper .icons > .icon");
+    this.bricks = Array.prototype.slice.call(document.querySelectorAll("#game-wrapper .icons > .icon"));
     this.isDragging = false;
     this.direction = {
       x: 1,
@@ -56,9 +56,7 @@ class Game {
   }
 
   collision($div1, $div2) {
-
-
-    var circle1 = {radius: 15, x: $div1.offsetLeft + 15, y: this.gameWindow.offsetHeight - $div1.offsetTop - 15};
+    var circle1 = {radius: $div1.offsetHeight/2, x: $div1.offsetLeft + $div1.offsetHeight/2, y: this.gameWindow.offsetHeight - $div1.offsetTop - 15};
     var circle2 = {radius: 45, x: $div2.offsetLeft + 45, y: this.gameWindow.offsetHeight - $div2.offsetTop - 45};
 
     var dx = circle1.x - circle2.x;
@@ -67,98 +65,113 @@ class Game {
 
     let isCollision = distance < circle1.radius + circle2.radius;
 
+    circle1.x -= circle2.x;
+    circle1.y -= circle2.y;
+
+    let result = {
+      x: 1,
+      y: 1
+    };
+
     if (isCollision) {
-      if ((circle1.x <= circle2.x + 5 || circle1.x >= circle2.x - 5) && circle1.y < circle2.y) {
-        return "down";
+
+      if (circle1.x < 25 && circle1.x > -25 && circle1.y < 0) {
+        return {
+          y: -1
+        };
+      } else if (circle1.x < 25 && circle1.x > -25 && circle1.y > 0) {
+        return {
+          y: 1
+        }
+      } else if (circle1.y < 25 && circle1.y > -25 && circle1.x < 0) {
+        return {
+          x: -1
+        }
+      } else if (circle1.y < 25 && circle1.y > -25 && circle1.x > 0) {
+        return {
+          x: 1
+        }
       }
 
-      if ((circle1.y >= circle2.y - 5 || circle1.y <= circle2.y + 5) && circle1.x < circle2.x) {
-        return "left";
-      }
+      return {
+        x: circle1.x / Math.abs(circle1.x),
+        y: circle1.y / Math.abs(circle1.y)
+      };
 
-      if ((circle1.x <= circle2.x + 5 || circle1.x >= circle2.x - 5) && circle1.y >= circle2.y) {
-        return "up";
-      }
-
-      if ((circle1.y >= circle2.y - 5 || circle1.y <= circle2.y + 5) && circle1.x >= circle2.x) {
-        return "right";
-      }
+    } else {
+      return false;
     }
-
-    return "";
   }
 
 
   moveBall() {
-    let x = this.gameWindow.offsetWidth, y = this.gameWindow.offsetHeight;
 
-    let offset = this.settings.ballSpeed, hasBounced = false;
+    for (let i = 0; i < this.settings.ballSpeed; i++) {
+      let x = this.gameWindow.offsetWidth,
+        y = this.gameWindow.offsetHeight;
 
-    if (this.ball.offsetLeft - offset <= 0 && this.direction.x === -1) {
-      this.ball.style.left = 0;
-      hasBounced = !!(this.direction.x = 1);
-      this.gameWindow.style.borderLeftColor = "grey";
-      setTimeout(() => {
-        this.gameWindow.style.borderLeftColor = "transparent";
-      }, 1000);
-    }
+      let hasBounced = false;
 
-    if (this.ball.offsetTop - offset <= 0 && this.direction.y === 1) {
-      this.ball.style.top = 0;
-      hasBounced = !!(this.direction.y = -1);
-      this.gameWindow.style.borderTopColor = "grey";
-      setTimeout(() => {
-        this.gameWindow.style.borderTopColor = "transparent";
-      }, 1000);
-    }
+      if (this.ball.offsetLeft <= 0 && this.direction.x === -1) {
+        this.ball.style.left = 0;
 
-    if (this.ball.offsetLeft - offset >= x - parseInt(this.ball.offsetWidth) && this.direction.x === 1) {
-      this.ball.style.top = y - parseInt(this.ball.offsetHeight);
-      hasBounced = !!(this.direction.x = -1);
-      this.gameWindow.style.borderRightColor = "grey";
-      setTimeout(() => {
-        this.gameWindow.style.borderRightColor = "transparent";
-      }, 1000);
-    }
-
-    if (this.ball.offsetTop - offset >= y - parseInt(this.ball.offsetHeight) && this.direction.y === -1) {
-
-      if (this.ball.offsetLeft < this.pad.offsetLeft || this.ball.offsetLeft > (this.pad.offsetLeft + this.pad.offsetWidth)) {
-        this.lost = true;
-        this.ball.style.display = "none";
-      } else {
-        this.ball.style.top = y - parseInt(this.ball.offsetHeight);
-        hasBounced = !!(this.direction.y = 1);
+        hasBounced = !!(this.direction.x = 1);
+        this.gameWindow.style.borderLeftColor = "grey";
+        setTimeout(() => {
+          this.gameWindow.style.borderLeftColor = "transparent";
+        }, 1000);
       }
-    }
 
-    if (!hasBounced) {
-      this.ball.style.left = this.ball.offsetLeft + this.direction.x * this.settings.ballSpeed + "px";
-      this.ball.style.top = this.ball.offsetTop + this.direction.y * -1 * this.settings.ballSpeed + "px";
-    }
+      if (this.ball.offsetTop <= 0 && this.direction.y === 1) {
+        this.ball.style.top = 0;
+        hasBounced = !!(this.direction.y = -1);
+        this.gameWindow.style.borderTopColor = "grey";
+        setTimeout(() => {
+          this.gameWindow.style.borderTopColor = "transparent";
+        }, 1000);
+      }
 
-    jQuery.each(this.bricks, (index, $icon) => {
-      let lol = this.collision(this.ball, $icon);
-      if ($icon.style.opacity !== "0" && lol !== "") {
-        $icon.style.borderColor = "#1f1f1f";
-        $icon.style.opacity = "0";
+      if (this.ball.offsetLeft >= x - parseInt(this.ball.offsetWidth) && this.direction.x === 1) {
+        this.ball.style.top = y - parseInt(this.ball.offsetHeight);
+        hasBounced = !!(this.direction.x = -1);
+        this.gameWindow.style.borderRightColor = "grey";
+        setTimeout(() => {
+          this.gameWindow.style.borderRightColor = "transparent";
+        }, 1000);
+      }
 
-        switch(lol) {
-          case "down":
-            this.direction.y = -1;
-            break;
-          case "up":
-            this.direction.y = 1;
-            break;
-          case "left":
-            this.direction.x = -1;
-            break;
-          case "right":
-            this.direction.x = 1;
-            break;
+      if (this.ball.offsetTop + this.pad.offsetHeight + 1 >= y - parseInt(this.ball.offsetHeight) && this.direction.y === -1) {
+
+        if (this.ball.offsetLeft < this.pad.offsetLeft || this.ball.offsetLeft > (this.pad.offsetLeft + this.pad.offsetWidth)) {
+          this.lost = true;
+          this.ball.style.display = "none";
+        } else {
+          this.ball.style.top = y - parseInt(this.ball.offsetHeight);
+          hasBounced = !!(this.direction.y = 1);
         }
       }
-    });
+
+      if (!hasBounced) {
+        this.ball.style.left = this.ball.offsetLeft + this.direction.x + "px";
+        this.ball.style.top = this.ball.offsetTop + this.direction.y * -1 + "px";
+      }
+
+      this.bricks.forEach(($icon) => {
+        let isCollision = this.collision(this.ball, $icon);
+        if ($icon.style.opacity !== "0" && isCollision) {
+          $icon.style.borderColor = "#1f1f1f";
+          $icon.style.opacity = "0";
+
+          if (isCollision.x) {
+            this.direction.x = isCollision.x;
+          }
+
+          if (isCollision.y) {
+            this.direction.y = isCollision.y;
+          }
+        }
+      });
+    }
 
     if (!this.lost) {
       requestAnimationFrame(() => { this.moveBall(); });

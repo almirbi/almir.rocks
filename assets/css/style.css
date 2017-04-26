@@ -72,7 +72,7 @@ div.icons {
     padding: 15px;
     display: inline-block;
     border-radius: 100%;
-    border: 1px solid transparent;
+    border: 1px solid #1f1f1f;
     text-align: center;
     vertical-align: middle;
     transition: opacity 0.5s ease; }
@@ -96,7 +96,7 @@ div.pad-wrapper {
   position: relative;
   display: block;
   transition: border-top-color 0.8s ease, border-right-color 0.8s ease, border-left-color 0.8s ease;
-  border: 1px solid transparent; }
+  border: 1px solid #1f1f1f; }
   #game-wrapper #ball {
     position: absolute;
     background: #FFC107;
