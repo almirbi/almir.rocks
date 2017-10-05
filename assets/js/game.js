@@ -324,6 +324,14 @@ class Game {
       }
     }
 
+    ga('send', {
+      hitType: 'event',
+      eventCategory: 'Game',
+      eventAction: 'broken',
+      eventLabel: 'Brick Hits',
+      eventValue: $brick.src.replace("assets/images/", "").replace(".svg", "");
+    });
+
     this.bricks.splice(toRemove, 1);
   }
 

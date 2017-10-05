@@ -18,7 +18,6 @@ window.addEventListener('load', () => {
     let image = document.createElement("img");
     let iconWrap = document.createElement("div");
     iconWrap.className = "icon";
-    iconWrap.id = index;
     image.title = tech;
     image.src = "assets/images/" + tech + ".svg";
 
