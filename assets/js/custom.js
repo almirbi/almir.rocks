@@ -1,6 +1,8 @@
 
 
 window.addEventListener('load', () => {
+  let delayer = document.getElementById('delay-script-load');
+  delayer.parentElement.removeChild(delayer);
 	let icons = document.querySelector("#game-wrapper .icons");
   let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "d3js", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
 
