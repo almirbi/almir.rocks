@@ -1,3 +1,10 @@
+const State = {
+  PAUSED: 'paused',
+  VIRGIN: 'virgin',
+  RUNNING: 'running',
+  LOST: 'lost'
+};
+
 class Game {
   constructor() {
     this.ball = document.getElementById("ball");
@@ -9,25 +16,48 @@ class Game {
       x: 1,
       y: 1
     };
-
+    this.state = State.VIRGIN;
     this.settings = {
-      ballSpeed: 7
+      ballSpeed: 6
     };
 
-    this.isGameRuninng = false;
-    this.lost = false;
+    this.pad.addEventListener("mousedown", (event) => {
+      if (event.button == 0) {
+        this.isDragging = true;
 
-    this.pad.addEventListener("mousedown", () => {
-      this.isDragging = true;
-
-      if (!this.isGameRuninng) {
-        this.launchBall();
-        this.isGameRuninng = true;
+        switch(this.state) {
+          case State.VIRGIN:
+            this.gameWindow.className = "";
+            this.launchBall();
+            
+            break;
+          case State.LOST:
+            this.resetGame();
+            break;
+          case State.PAUSED:
+            this.startMovingSmooth(() => {
+              this.play();  
+            });
+            break;
+        }
       }
     });
 
-    document.addEventListener("mouseup", () => {
-      this.isDragging = false;
+    document.addEventListener("mouseup", (event) => {
+      if (event.button == 0) {
+        this.isDragging = false;
+        this.gameWindow.classList.add("paused");
+        this.slowBallDown(() => {
+          if ( ! this.isDragging ) {
+            this.pauseGame();
+          } else {
+            this.startMovingSmooth(() => {
+              this.play();
+            });
+          }
+        });
+      }
+      
     });
 
     document.addEventListener("mousemove", (event) => {
@@ -38,7 +68,7 @@ class Game {
     });
   }
 
-  getWindowDimensions() {
+  getWindowDimensions() {  
     let w = window,
       d = document,
       e = d.documentElement,
@@ -49,15 +79,95 @@ class Game {
   }
 
   launchBall() {
-    this.ball.style.left = this.ball.offsetLeft + "px";
-    this.ball.style.top = this.ball.offsetTop + "px";
-
+    this.play();
     this.moveBall();
   }
 
-  collision($div1, $div2) {
-    var circle1 = {radius: $div1.offsetHeight/2, x: $div1.offsetLeft + $div1.offsetHeight/2, y: this.gameWindow.offsetHeight - $div1.offsetTop - 15};
-    var circle2 = {radius: 45, x: $div2.offsetLeft + 45, y: this.gameWindow.offsetHeight - $div2.offsetTop - 45};
+  resetGame() {
+    if (this.state == State.LOST) {
+      this.gameWindow.classList.remove("lost");
+      // change to display = block must bome before ball.offsetHeight
+      // because offsetHeight for elements not in the DOM will be 0
+      this.ball.style.display = "block";
+      this.ball.style.left = this.pad.offsetLeft + 20 + "px";
+      this.ball.style.top = (this.pad.parentElement.offsetTop - this.ball.offsetHeight) + "px";
+      this.state = State.RUNNING;
+      this.gameWindow.className = "";
+
+      this.settings.ballSpeed = 6;
+
+      this.direction = {
+        x: 1,
+        y: 1
+      };
+
+      this.launchBall();
+    }
+  }
+
+  endGame() {
+    this.state = State.LOST;
+    this.gameWindow.classList.add("lost");
+    this.ball.style.display = "none";
+  }
+
+  slowBallDown(cb) {
+
+    let interval = setInterval(() => {
+      if (this.settings.ballSpeed-- == 0 || this.isDragging) {
+        clearInterval(interval);
+        cb();
+        return;
+      }
+    }, 100);
+  }
+
+  startMovingSmooth(cb) {
+    cb();
+    if (this.settings.ballSpeed == 6) {
+      return;
+    }
+    let interval = setInterval(() => {
+      if (this.settings.ballSpeed++ >= 5) {
+        clearInterval(interval);
+        // hack for bug resistance B-|
+        this.settings.ballSpeed = 6;
+        this.gameWindow.classList.remove("paused");
+        return;
+      }
+    }, 100);
+  }
+
+  pauseGame() {
+    if (this.state == State.RUNNING) {
+      this.state = State.PAUSED;
+      
+    }
+  }
+
+  play() {
+    this.state = State.RUNNING;
+    
+  }
+
+  collision($div1, $div2, areElements = true) {
+    let circle1, circle2;
+
+    if ( areElements ) {
+      circle1 = {
+        radius: $div1.offsetHeight/2, 
+        x: $div1.offsetLeft + $div1.offsetHeight/2, 
+        y: this.gameWindow.offsetHeight - $div1.offsetTop - 15
+      };
+      circle2 = {
+        radius: 45, 
+        x: $div2.offsetLeft + 45, 
+        y: this.gameWindow.offsetHeight - $div2.offsetTop - 45
+      };
+    } else {
+      circle1 = $div1;
+      circle2 = $div2
+    }
 
     var dx = circle1.x - circle2.x;
     var dy = circle1.y - circle2.y;
@@ -103,80 +213,124 @@ class Game {
     }
   }
 
+  isCollisionWithPad(side) {
+    let leftEndOfPad = {
+      radius: this.pad.offsetHeight/2, 
+      x: this.pad.offsetLeft + this.pad.offsetHeight/2, 
+      y: this.gameWindow.offsetHeight - this.pad.offsetHeight/2
+    };
 
-  moveBall() {
+    let rightEndOfPad = {
+      radius: this.pad.offsetHeight/2, 
+      x: this.pad.offsetLeft + this.pad.offsetWidth - this.pad.offsetHeight/2, 
+      y: this.gameWindow.offsetHeight - this.pad.offsetHeight/2
+    };
 
-    for (let i = 0; i < this.settings.ballSpeed; i++) {
-      let x = this.gameWindow.offsetWidth,
+    let ball = {
+      radius: this.ball.offsetHeight/2, 
+      x: this.ball.offsetLeft + this.ball.offsetHeight/2, 
+      y: this.gameWindow.offsetHeight - this.ball.offsetTop - 15
+    };
+
+    return this.collision(ball, side === 'left' ? leftEndOfPad : rightEndOfPad);
+  }
+
+  blinkBorder(side) {
+    if (side == "pad") return;
+    let sanitzedSide = side.toLowerCase();
+    sanitzedSide = sanitzedSide.charAt(0).toUpperCase() + sanitzedSide.slice(1);
+    this.gameWindow.style['border' + sanitzedSide + 'Color'] = "grey";
+    setTimeout(() => {
+      this.gameWindow.style['border' + sanitzedSide + 'Color'] = "transparent";
+    }, 1000);
+  }
+
+  bounce() {
+    let x = this.gameWindow.offsetWidth, 
         y = this.gameWindow.offsetHeight;
 
-      let hasBounced = false;
-
-      if (this.ball.offsetLeft <= 0 && this.direction.x === -1) {
+    if (this.ball.offsetLeft <= 0 && this.direction.x === -1) {
         this.ball.style.left = 0;
-
-        hasBounced = !!(this.direction.x = 1);
-        this.gameWindow.style.borderLeftColor = "grey";
-        setTimeout(() => {
-          this.gameWindow.style.borderLeftColor = "transparent";
-        }, 1000);
-      }
-
-      if (this.ball.offsetTop <= 0 && this.direction.y === 1) {
-        this.ball.style.top = 0;
-        hasBounced = !!(this.direction.y = -1);
-        this.gameWindow.style.borderTopColor = "grey";
-        setTimeout(() => {
-          this.gameWindow.style.borderTopColor = "transparent";
-        }, 1000);
-      }
-
-      if (this.ball.offsetLeft >= x - parseInt(this.ball.offsetWidth) && this.direction.x === 1) {
-        this.ball.style.top = y - parseInt(this.ball.offsetHeight);
-        hasBounced = !!(this.direction.x = -1);
-        this.gameWindow.style.borderRightColor = "grey";
-        setTimeout(() => {
-          this.gameWindow.style.borderRightColor = "transparent";
-        }, 1000);
-      }
-
-      if (this.ball.offsetTop + this.pad.offsetHeight + 1 >= y - parseInt(this.ball.offsetHeight) && this.direction.y === -1) {
-
-        if (this.ball.offsetLeft < this.pad.offsetLeft || this.ball.offsetLeft > (this.pad.offsetLeft + this.pad.offsetWidth)) {
-          this.lost = true;
-          this.ball.style.display = "none";
-        } else {
-          this.ball.style.top = y - parseInt(this.ball.offsetHeight);
-          hasBounced = !!(this.direction.y = 1);
-        }
-      }
-
-      if (!hasBounced) {
-        this.ball.style.left = this.ball.offsetLeft + this.direction.x + "px";
-        this.ball.style.top = this.ball.offsetTop + this.direction.y * -1 + "px";
-      }
-
-      this.bricks.forEach(($icon) => {
-        let isCollision = this.collision(this.ball, $icon);
-        if ($icon.style.opacity !== "0" && isCollision) {
-          $icon.style.borderColor = "#1f1f1f";
-          $icon.style.opacity = "0";
-
-          if (isCollision.x) {
-            this.direction.x = isCollision.x;
-          }
-
-          if (isCollision.y) {
-            this.direction.y = isCollision.y;
-          }
-        }
-      });
+        this.direction.x = 1;
+        return 'left';
     }
 
-    if (!this.lost) {
+    if (this.ball.offsetTop <= 0 && this.direction.y === 1) {
+        this.ball.style.top = 0;
+        this.direction.y = -1;
+        return 'top';
+    }
+
+    if (this.ball.offsetLeft >= x - parseInt(this.ball.offsetWidth) && this.direction.x === 1) {
+        this.ball.style.top = y - parseInt(this.ball.offsetHeight);
+        this.direction.x = -1;
+        return 'right';
+    }
+
+    if (this.ball.offsetTop + 21 >= y - parseInt(this.ball.offsetHeight) && this.direction.y === -1) {
+        if (this.ball.offsetLeft > this.pad.offsetLeft - this.ball.offsetWidth - 5 && this.ball.offsetLeft < this.pad.offsetLeft + this.pad.offsetWidth) {
+            this.direction.y = 1;
+            return 'pad';
+        } else {
+            throw 'Lost';
+        }
+    }
+
+    return false;
+  }
+
+  killBrick($brick) {
+    $brick.style.borderColor = "#1f1f1f";
+    $brick.style.opacity = "0";
+  }
+
+  moveBall() {
+    try {
+
+      if (this.state == State.PAUSED) {
+        requestAnimationFrame(() => { this.moveBall(); });
+        return;
+      }
+
+      for (let i = 0; i < this.settings.ballSpeed; i++) {
+        let bounceSide = this.bounce();
+
+        if (bounceSide) {
+            console.log(bounceSide);
+            this.blinkBorder(bounceSide);
+        }
+
+        this.ball.style.left = this.ball.offsetLeft + this.direction.x + "px";
+        this.ball.style.top = this.ball.offsetTop + this.direction.y * -1 + "px";
+        
+        this.bricks.forEach(($brick) => {
+          let isCollision = this.collision(this.ball, $brick);
+
+          if ($brick.style.opacity !== "0" && isCollision) {
+            if (this.settings.ballSpeed === 6) {
+              this.killBrick($brick);
+            }
+            
+            if (isCollision.x) {
+              this.direction.x = isCollision.x;
+            }
+
+            if (isCollision.y) {
+              this.direction.y = isCollision.y;
+            }
+          }
+        });
+      }
+
       requestAnimationFrame(() => { this.moveBall(); });
+    }  catch(e) {
+        if (e === "Lost") {
+            this.endGame();
+        } else {
+            this.endGame();
+            throw (e);
+        }
     }
   }
 }
 
-let awesomeGame = new Game();

@@ -1,23 +1,27 @@
-function getWindowDimensions() {
-  let w = window,
-    d = document,
-    e = d.documentElement,
-    g = d.getElementsByTagName('body')[0],
-    x = w.innerWidth || e.clientWidth || g.clientWidth,
-    y = w.innerHeight|| e.clientHeight|| g.clientHeight;
-  return {x, y};
-}
-
-function resizeHomeSection() {
-  let {x, y} = getWindowDimensions();
-
-  window.home.style.height = y + "px";
-}
-
 window.addEventListener('load', () => {
-	resizeHomeSection();
+	let icons = document.querySelector("#game-wrapper .icons");
+  let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "d3js", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
 
+  let divRow;
 
+  techs.forEach((tech, index) => {
+
+    if (index % parseInt(techs.length/3) === 0 || index === 0) {
+      divRow = document.createElement("br");
+      icons.appendChild(divRow);
+    }
+
+    let image = document.createElement("img");
+    let iconWrap = document.createElement("div");
+    iconWrap.className = "icon";
+    image.title = tech;
+    image.src = "assets/images/" + tech + ".svg";
+
+    iconWrap.appendChild(image);
+    icons.appendChild(iconWrap);
+  });
+
+  let awesomeGame = new Game();
 }, false);
 
 window.addEventListener("resize", () => {
