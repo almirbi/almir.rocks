@@ -252,36 +252,13 @@ class Game {
     var dy = circle1.y - circle2.y;
     var distance = Math.sqrt(dx * dx + dy * dy);
 
-    let isCollision = distance < circle1.radius + circle2.radius;
+    let radiusSum = circle1.radius + circle2.radius;
 
+    let isCollision = distance <= radiusSum;
     circle1.x -= circle2.x;
     circle1.y -= circle2.y;
 
-    let result = {
-      x: 1,
-      y: 1
-    };
-
     if (isCollision) {
-
-      if (circle1.x < 25 && circle1.x > -25 && circle1.y < 0) {
-        return {
-          y: -1
-        };
-      } else if (circle1.x < 25 && circle1.x > -25 && circle1.y > 0) {
-        return {
-          y: 1
-        }
-      } else if (circle1.y < 25 && circle1.y > -25 && circle1.x < 0) {
-        return {
-          x: -1
-        }
-      } else if (circle1.y < 25 && circle1.y > -25 && circle1.x > 0) {
-        return {
-          x: 1
-        }
-      }
-
       return {
         x: circle1.x / Math.abs(circle1.x),
         y: circle1.y / Math.abs(circle1.y)
@@ -338,7 +315,16 @@ class Game {
 
   killBrick($brick) {
     $brick.classList.add("dead");
-    this.bricks = Array.prototype.slice.call(document.querySelectorAll("#game-wrapper .icons > .icon:not(.dead)"));
+    let toRemove;
+    for (let i = 0; i < this.bricks.length; i++) {
+      let tmp = this.bricks[i];
+      if (tmp.classList.contains('dead')) {
+        toRemove = i;
+        break;
+      }
+    }
+
+    this.bricks.splice(toRemove, 1);
   }
 
   moveBall() {
@@ -363,13 +349,14 @@ class Game {
         let top = this.ball.offsetTop,
           lastIcon = document.querySelector("div.icons .icon:last-child"),
           topThreshold = lastIcon.offsetTop + lastIcon.offsetHeight;
-
+        
         if (top < topThreshold) {
-          console.log("Checking");
+
           this.bricks.forEach(($brick) => {
             let isCollision = this.collision(this.ball, $brick);
-  
-            if (isCollision) {
+
+
+            if (isCollision.x || isCollision.y) {
               if (this.settings.ballSpeed === DEFAULT_SPEED) {
                 this.killBrick($brick);
               }
@@ -381,7 +368,7 @@ class Game {
               if (isCollision.y) {
                 this.direction.y = isCollision.y;
               }
-            }
+            } 
           });
         }
         
