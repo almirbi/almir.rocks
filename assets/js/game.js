@@ -65,6 +65,7 @@ class Game {
     this.settings = {
       ballSpeed: DEFAULT_SPEED
     };
+    this.isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
     
 
@@ -89,21 +90,6 @@ class Game {
       // console.log(left);
       
     }
-  }
-
-  monkeyPatchScroll() {
-    this.positionY = window.pageYOffset;
-    document.addEventListener("scroll", this.lockScroll.bind(this));
-  }
-
-  lockScroll(event) {
-    event.preventDefault();
-    event.returnValue = false;
-    // window.scrollTo(0, this.positionY);
-  }
-  
-  unmonkeyPatchScroll() {
-    document.removeEventListener("scroll", this.lockScroll);
   }
 
   handleEnd(event) {
@@ -162,14 +148,26 @@ class Game {
     this.moveBall();
   }
 
+  getElementOffsetTop(element) {    
+    let gameWindowCss = getComputedStyle(this.gameWindow),
+        borderWidth = parseInt(gameWindowCss["border-top-width"]);
+    return this.isFirefox ? element.offsetTop - borderWidth : element.offsetTop;
+  }
+
+  getElementOffsetLeft(element) {    
+    let gameWindowCss = getComputedStyle(this.gameWindow),
+        borderWidth = parseInt(gameWindowCss["border-left-width"]);
+    return this.isFirefox ? element.offsetLeft - borderWidth : element.offsetLeft;
+  }
+
   resetGame() {
     if (this.state == State.LOST) {
       this.gameWindow.classList.remove("lost");
       // change to display = block must bome before ball.offsetHeight
       // because offsetHeight for elements not in the DOM will be 0
       this.ball.style.display = "block";
-      this.ball.style.left = this.pad.offsetLeft + 20 + "px";
-      this.ball.style.top = (this.pad.parentElement.offsetTop - this.ball.offsetHeight) + "px";
+      this.ball.style.left = this.getElementOffsetLeft(this.pad) + 20 + "px";
+      this.ball.style.top = (this.getElementOffsetTop(this.pad.parentElement) - this.ball.offsetHeight) + "px";
       this.state = State.RUNNING;
       this.gameWindow.className = "";
 
@@ -235,13 +233,13 @@ class Game {
     if ( areNotElements ) {
       circle1 = {
         radius: $div1.offsetHeight/2, 
-        x: $div1.offsetLeft + $div1.offsetHeight/2, 
-        y: this.gameWindow.offsetHeight - $div1.offsetTop - 15
+        x: this.getElementOffsetLeft($div1) + $div1.offsetHeight/2, 
+        y: this.gameWindow.offsetHeight - this.getElementOffsetTop($div1) - 15
       };
       circle2 = {
         radius: $div2.offsetWidth/2,
-        x: $div2.offsetLeft + $div2.offsetWidth/2, 
-        y: this.gameWindow.offsetHeight - $div2.offsetTop - $div2.offsetWidth/2
+        x: this.getElementOffsetLeft($div2) + $div2.offsetWidth/2, 
+        y: this.gameWindow.offsetHeight - this.getElementOffsetTop($div2) - $div2.offsetWidth/2
       };
     } else {
       circle1 = $div1;
@@ -283,26 +281,26 @@ class Game {
     let x = this.gameWindow.offsetWidth, 
         y = this.gameWindow.offsetHeight;
 
-    if (this.ball.offsetLeft <= 0 && this.direction.x === -1) {
-        this.ball.style.left = 0;
+    if (this.getElementOffsetLeft(this.ball) <= 0 && this.direction.x === -1) {
+        this.ball.style.setProperty("left", 0);
         this.direction.x = 1;
         return 'left';
     }
 
-    if (this.ball.offsetTop <= 0 && this.direction.y === 1) {
-        this.ball.style.top = 0;
+    if (this.getElementOffsetTop(this.ball) <= 0 && this.direction.y === 1) {
+        this.ball.style.setProperty("top", 0);
         this.direction.y = -1;
         return 'top';
     }
 
-    if (this.ball.offsetLeft >= x - parseInt(this.ball.offsetWidth) && this.direction.x === 1) {
-        this.ball.style.top = y - parseInt(this.ball.offsetHeight);
+    if (this.getElementOffsetLeft(this.ball) >= x - parseInt(this.ball.offsetWidth) && this.direction.x === 1) {
+        this.ball.style.setProperty("top", y - parseInt(this.ball.offsetHeight));
         this.direction.x = -1;
         return 'right';
     }
 
-    if (this.ball.offsetTop + 21 >= y - parseInt(this.ball.offsetHeight) && this.direction.y === -1) {
-        if (this.ball.offsetLeft > this.pad.offsetLeft - this.ball.offsetWidth - 5 && this.ball.offsetLeft < this.pad.offsetLeft + this.pad.offsetWidth) {
+    if (this.getElementOffsetTop(this.ball) + 21 >= y - parseInt(this.ball.offsetHeight) && this.direction.y === -1) {
+        if (this.getElementOffsetLeft(this.ball) > this.getElementOffsetLeft(this.pad) - this.ball.offsetWidth - 5 && this.getElementOffsetLeft(this.ball) < this.getElementOffsetLeft(this.pad) + this.pad.offsetWidth) {
             this.direction.y = 1;
             return 'pad';
         } else {
@@ -351,14 +349,24 @@ class Game {
             this.blinkBorder(bounceSide);
         }
 
-        this.ball.style.left = this.ball.offsetLeft + this.direction.x + "px";
-        this.ball.style.top = this.ball.offsetTop + this.direction.y * -1 + "px";
+        let left = (this.getElementOffsetLeft(this.ball) + this.direction.x) + "px",
+            a = this.getElementOffsetTop(this.ball),
+            b = this.direction.y * -1,
+            top = a + b + "px";
 
-        let top = this.ball.offsetTop,
+        /*if (this.isFirefox) {
+            b++;
+            top = a + b + "px";
+        }*/
+
+        this.ball.style.setProperty("left", left);
+        this.ball.style.setProperty("top", top);
+
+        let ballTop = this.getElementOffsetTop(this.ball),
           lastIcon = document.querySelector("div.icons .icon:last-child"),
-          topThreshold = lastIcon.offsetTop + lastIcon.offsetHeight;
+          topThreshold = this.getElementOffsetTop(lastIcon) + lastIcon.offsetHeight;
         
-        if (top < topThreshold) {
+        if (ballTop < topThreshold) {
 
           this.bricks.forEach(($brick) => {
             let isCollision = this.collision(this.ball, $brick);
