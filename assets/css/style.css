@@ -1075,8 +1075,12 @@ ul.articles {
   padding: 0; }
   ul.articles li {
     padding-bottom: 40px; }
+    ul.articles li:hover a {
+      text-decoration: underline; }
     ul.articles li a {
       font-size: 2em; }
+      ul.articles li a img {
+        width: 30px; }
       ul.articles li a span {
         color: #F44336; }
 

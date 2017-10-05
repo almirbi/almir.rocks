@@ -1340,8 +1340,18 @@ ul.articles {
   li {
     padding-bottom: 40px;
 
+    &:hover {
+      a {
+        text-decoration: underline;
+      }
+    }
+
     a {
       font-size: 2em;
+
+      img {
+        width: 30px;
+      }
   
       span {
         color: $primary-color;
