@@ -24,8 +24,8 @@ class Game {
     this.pad.addEventListener("touchstart", this.handleStart.bind(this), false);
     this.pad.addEventListener("mousedown", this.handleStart.bind(this), false);
 
-    this.pad.addEventListener("touchend", this.handleEnd.bind(this), false);
-    this.pad.addEventListener("touchcancel", this.handleEnd.bind(this), false);
+    document.addEventListener("touchend", this.handleEnd.bind(this), false);
+    document.addEventListener("touchcancel", this.handleEnd.bind(this), false);
     document.addEventListener("mouseup", this.handleEnd.bind(this), false);
 
     document.addEventListener("touchmove", this.handleMove.bind(this), false);
@@ -34,13 +34,18 @@ class Game {
 
   handleMove(event) {
     if (this.isDragging) {
-      let {x, y} = this.getWindowDimensions();
-      this.pad.style.left = event.clientX - ((x - this.gameWindow.offsetWidth)/2) + "px";
+      let {x, y} = this.getWindowDimensions(),
+        left = "", clientX = event.clientX || event.touches[0].clientX;
+      left = (clientX - ((x - this.gameWindow.offsetWidth)/2)) + "px"
+      // this.pad.style.left = left;
+      this.pad.style.setProperty("left", left);
+      console.log(left);
+      
     }
   }
 
   handleEnd(event) {
-    if (event.button == 0) {
+    if (event.button == 0 || event.button === undefined) {
       this.isDragging = false;
       this.gameWindow.classList.add("paused");
       this.slowBallDown(() => {
@@ -57,7 +62,7 @@ class Game {
   }
 
   handleStart(event) {
-    if (event.button == 0) {
+    if (event.button == 0 || event.button === undefined) {
       this.isDragging = true;
 
       switch(this.state) {
@@ -160,19 +165,19 @@ class Game {
     
   }
 
-  collision($div1, $div2, areElements = true) {
+  collision($div1, $div2, areNotElements = true) {
     let circle1, circle2;
 
-    if ( areElements ) {
+    if ( areNotElements ) {
       circle1 = {
         radius: $div1.offsetHeight/2, 
         x: $div1.offsetLeft + $div1.offsetHeight/2, 
         y: this.gameWindow.offsetHeight - $div1.offsetTop - 15
       };
       circle2 = {
-        radius: 45, 
-        x: $div2.offsetLeft + 45, 
-        y: this.gameWindow.offsetHeight - $div2.offsetTop - 45
+        radius: $div2.offsetWidth/2,
+        x: $div2.offsetLeft + $div2.offsetWidth/2, 
+        y: this.gameWindow.offsetHeight - $div2.offsetTop - $div2.offsetWidth/2
       };
     } else {
       circle1 = $div1;
@@ -221,28 +226,6 @@ class Game {
     } else {
       return false;
     }
-  }
-
-  isCollisionWithPad(side) {
-    let leftEndOfPad = {
-      radius: this.pad.offsetHeight/2, 
-      x: this.pad.offsetLeft + this.pad.offsetHeight/2, 
-      y: this.gameWindow.offsetHeight - this.pad.offsetHeight/2
-    };
-
-    let rightEndOfPad = {
-      radius: this.pad.offsetHeight/2, 
-      x: this.pad.offsetLeft + this.pad.offsetWidth - this.pad.offsetHeight/2, 
-      y: this.gameWindow.offsetHeight - this.pad.offsetHeight/2
-    };
-
-    let ball = {
-      radius: this.ball.offsetHeight/2, 
-      x: this.ball.offsetLeft + this.ball.offsetHeight/2, 
-      y: this.gameWindow.offsetHeight - this.ball.offsetTop - 15
-    };
-
-    return this.collision(ball, side === 'left' ? leftEndOfPad : rightEndOfPad);
   }
 
   blinkBorder(side) {
@@ -306,7 +289,7 @@ class Game {
         let bounceSide = this.bounce();
 
         if (bounceSide) {
-            console.log(bounceSide);
+            // console.log(bounceSide);
             this.blinkBorder(bounceSide);
         }
 
