@@ -96,57 +96,6 @@ span.annotated-comment.subtitle {
  * Home
 /* ---------------------------------------------- */
 
-#home {
-  background: url(../images/cover.jpg);
-  background-color: #222;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
-  background-size: cover;
-  padding: 0;
-  overflow: hidden;
-}
-
-.home-overlay {
-  background-color: rgba(44, 62, 80, 0.3);
-  background-image: url("../images/pattern.png");
-  background-repeat: repeat;
-  height: 100%;
-  left: 0;
-  position: absolute;
-  top: 0;
-  width: 100%;
-  z-index: 0;
-}
-
-.intro {
-  position: absolute;
-  width: 100%;
-  top: 30%;
-  left: 0;
-  text-align: center;
-  transform: translate(0%, -50%);
-  padding: 0 15px;
-}
-
-.intro h1 {
-  font-weight: 800;
-  position: relative;
-  display: inline-block;
-}
-
-.start {
-  font-family: Raleway, "Times New Roman", Times, sans-serif;
-  font-size: 20px;
-  font-style: normal;
-  text-transform: none;
-  margin: 15px 0;
-}
-
-span.strikethrough {
-  outline: 1px solid red;
-  outline-offset: -12px;
-}
 
 
 div.icons {
