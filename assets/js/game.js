@@ -21,51 +21,61 @@ class Game {
       ballSpeed: 6
     };
 
-    this.pad.addEventListener("mousedown", (event) => {
-      if (event.button == 0) {
-        this.isDragging = true;
+    this.pad.addEventListener("touchstart", this.handleStart.bind(this), false);
+    this.pad.addEventListener("mousedown", this.handleStart.bind(this), false);
 
-        switch(this.state) {
-          case State.VIRGIN:
-            this.gameWindow.className = "";
-            this.launchBall();
-            
-            break;
-          case State.LOST:
-            this.resetGame();
-            break;
-          case State.PAUSED:
-            this.startMovingSmooth(() => {
-              this.play();  
-            });
-            break;
+    this.pad.addEventListener("touchend", this.handleEnd.bind(this), false);
+    this.pad.addEventListener("touchcancel", this.handleEnd.bind(this), false);
+    document.addEventListener("mouseup", this.handleEnd.bind(this), false);
+
+    document.addEventListener("touchmove", this.handleMove.bind(this), false);
+    document.addEventListener("mousemove", this.handleMove.bind(this), false);
+  }
+
+  handleMove(event) {
+    if (this.isDragging) {
+      let {x, y} = this.getWindowDimensions();
+      this.pad.style.left = event.clientX - ((x - this.gameWindow.offsetWidth)/2) + "px";
+    }
+  }
+
+  handleEnd(event) {
+    if (event.button == 0) {
+      this.isDragging = false;
+      this.gameWindow.classList.add("paused");
+      this.slowBallDown(() => {
+        if ( ! this.isDragging ) {
+          this.pauseGame();
+        } else {
+          this.startMovingSmooth(() => {
+            this.play();
+          });
         }
-      }
-    });
+      });
+    }
+    
+  }
 
-    document.addEventListener("mouseup", (event) => {
-      if (event.button == 0) {
-        this.isDragging = false;
-        this.gameWindow.classList.add("paused");
-        this.slowBallDown(() => {
-          if ( ! this.isDragging ) {
-            this.pauseGame();
-          } else {
-            this.startMovingSmooth(() => {
-              this.play();
-            });
-          }
-        });
-      }
-      
-    });
+  handleStart(event) {
+    if (event.button == 0) {
+      this.isDragging = true;
 
-    document.addEventListener("mousemove", (event) => {
-      if (this.isDragging) {
-        let {x, y} = this.getWindowDimensions();
-        this.pad.style.left = event.clientX - ((x - this.gameWindow.offsetWidth)/2) + "px";
+      switch(this.state) {
+        case State.VIRGIN:
+          this.gameWindow.className = "";
+          this.launchBall();
+          
+          break;
+        case State.LOST:
+          this.resetGame();
+          break;
+        case State.PAUSED:
+          this.startMovingSmooth(() => {
+            this.play();  
+          });
+          break;
       }
-    });
+    }
   }
 
   getWindowDimensions() {  

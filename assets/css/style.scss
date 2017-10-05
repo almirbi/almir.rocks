@@ -143,18 +143,6 @@ span.annotated-comment.subtitle {
   margin: 15px 0;
 }
 
-span.annotated-comment.javascript {
-  transform-origin: 0 0;
-  transform: rotate(40deg) translate(-150px, 100px);
-  font-size: 20px;
-}
-
-span.annotated-comment.stockholm {
-  font-size: 20px;
-  min-width: 250px;
-  margin-left: -50px;
-}
-
 span.strikethrough {
   outline: 1px solid red;
   outline-offset: -12px;
@@ -179,6 +167,20 @@ div.icons {
 }
 
 
+
+span.annotated-comment.javascript {
+  transform-origin: 0 0;
+  transform: rotate(40deg) translate(-150px, 100px);
+  font-size: 20px;
+}
+
+span.annotated-comment.stockholm {
+  font-size: 20px;
+  min-width: 250px;
+  margin-left: -50px;
+  transform-origin: 0 0;
+  transform: rotate(-10deg) translate(-150px, 100px);
+}
 
 #game-wrapper {
   position: relative;
@@ -902,10 +904,18 @@ textarea.form-control {
  * Media
 /* ---------------------------------------------- */
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
 
   .calltoaction {
     text-align: center;
+  }
+
+  div.icons {
+    div.icon {
+      width: 30px;
+      height: 30px;
+      padding: 0px;
+    }
   }
 
 }
