@@ -81,15 +81,23 @@ class Game {
   }
 
   handleMove(event) {
+    
+    
     if (this.isDragging) {
+        if(event.stopPropagation) {
+            event.stopPropagation();
+        }
+        if(event.preventDefault) {
+            event.preventDefault();
+        }
+        event.cancelBubble = true;
+        event.returnValue = false;
       let {x, y} = this.getWindowDimensions(),
         left = "", clientX = event.clientX || event.touches[0].clientX;
       left = (clientX - ((x - this.gameWindow.offsetWidth)/2)) + "px"
-      // this.pad.style.left = left;
       this.pad.style.setProperty("left", left);
-      // console.log(left);
-      
     }
+    return false;
   }
 
   handleEnd(event) {
@@ -111,6 +119,16 @@ class Game {
   }
 
   handleStart(event) {
+
+    if(event.stopPropagation) {
+        event.stopPropagation();
+    }
+    if(event.preventDefault) {
+        event.preventDefault();
+    }
+    event.cancelBubble = true;
+    event.returnValue = false;
+
     if (event.button == 0 || event.button === undefined) {
       this.isDragging = true;
       disableScroll();
@@ -131,6 +149,8 @@ class Game {
           break;
       }
     }
+
+    return false;
   }
 
   getWindowDimensions() {  
