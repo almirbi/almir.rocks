@@ -24,10 +24,6 @@
 </head>
 <body>
 
-<div id="preloader">
-  <div id="status"></div>
-</div>
-
 <!-- Home start -->
 
 <section id="home"
@@ -68,11 +64,6 @@
   }
 
   resizeHomeSection();
-  
-  window.preloader.style.opacity = "0";
-  setTimeout(() => {
-    window.preloader.remove();
-  }, 300);
 </script>
 <!-- Home end -->
 
@@ -503,13 +494,25 @@
     ga('create', 'UA-62816665-1', 'auto');
     ga('send', 'pageview');
 </script>
-<script src="assets/js/game.js"></script>
-<script src="assets/js/custom.js"></script>
+<script src="dist/bundle.js"></script>
 
-<link rel='preload' href='/assets/bootstrap/css/bootstrap.min.css' onload='this.rel="stylesheet"'>
-<link rel='preload' href='/assets/css/font-awesome.min.css' onload='this.rel="stylesheet"'>
-<link rel='preload' href='/assets/css/style.css' onload='this.rel="stylesheet"'>
+<script type="text/javascript">
+  /* First CSS File */
+  function deferLoadCss(name) {
+    var giftofspeed = document.createElement('link');
+    giftofspeed.rel = 'stylesheet';
+    giftofspeed.href = name;
+    giftofspeed.type = 'text/css';
+    var godefer = document.getElementsByTagName('link')[0];
+    godefer.parentNode.insertBefore(giftofspeed, godefer);
+  }
 
-<script src="assets/js/modernizr.custom.js"></script>
+  deferLoadCss('/assets/bootstrap/css/bootstrap.min.css');
+  deferLoadCss('/assets/css/font-awesome.min.css');
+  deferLoadCss('/assets/css/style.css');
+  
+</script>
+
+<!--<script src="assets/js/modernizr.custom.js"></script>-->
 </body>
 </html>

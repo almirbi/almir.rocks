@@ -1,5 +1,3 @@
-
-
 window.addEventListener('load', () => {
   let delayer = document.getElementById('delay-script-load');
   delayer.parentElement.removeChild(delayer);
