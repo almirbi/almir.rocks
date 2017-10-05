@@ -329,7 +329,7 @@ class Game {
       eventCategory: 'Game',
       eventAction: 'broken',
       eventLabel: 'Brick Hits',
-      // eventValue: $brick.src.replace("assets/images/", "").replace(".svg", "")
+      eventValue: $brick.dataset.name
     });
 
     this.bricks.splice(toRemove, 1);

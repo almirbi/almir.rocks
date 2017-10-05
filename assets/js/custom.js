@@ -20,6 +20,7 @@ window.addEventListener('load', () => {
     iconWrap.className = "icon";
     image.title = tech;
     image.src = "assets/images/" + tech + ".svg";
+    iconWrap.dataset.name = tech;
 
     iconWrap.appendChild(image);
     icons.appendChild(iconWrap);
