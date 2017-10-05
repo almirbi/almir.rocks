@@ -663,6 +663,8 @@ textarea.form-control {
 @media (max-width: 768px) {
   .calltoaction {
     text-align: center; }
+  .intro h1 {
+    font-size: 34px !important; }
   div.icons div.icon {
     width: 30px;
     height: 30px;

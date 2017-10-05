@@ -1,30 +1,34 @@
 window.addEventListener('load', () => {
   let delayer = document.getElementById('delay-script-load');
   delayer.parentElement.removeChild(delayer);
-	let icons = document.querySelector("#game-wrapper .icons");
-  let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "d3js", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
 
-  let divRow;
-
-  techs.forEach((tech, index) => {
-
-    if (index % parseInt(techs.length/3) === 0 || index === 0) {
-      divRow = document.createElement("br");
-      icons.appendChild(divRow);
-    }
-
-    let image = document.createElement("img");
-    let iconWrap = document.createElement("div");
-    iconWrap.className = "icon";
-    image.title = tech;
-    image.src = "assets/images/" + tech + ".svg";
-    iconWrap.dataset.name = tech;
-
-    iconWrap.appendChild(image);
-    icons.appendChild(iconWrap);
+  setTimeout(() => {
+    let icons = document.querySelector("#game-wrapper .icons");
+    let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "d3js", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
+  
+    let divRow;
+  
+    techs.forEach((tech, index) => {
+  
+      if (index % parseInt(techs.length/3) === 0 || index === 0) {
+        divRow = document.createElement("br");
+        icons.appendChild(divRow);
+      }
+  
+      let image = document.createElement("img");
+      let iconWrap = document.createElement("div");
+      iconWrap.className = "icon";
+      image.title = tech;
+      image.src = "assets/images/" + tech + ".svg";
+      iconWrap.dataset.name = tech;
+  
+      iconWrap.appendChild(image);
+      icons.appendChild(iconWrap);
+    });
+  
+    let awesomeGame = new Game();
   });
-
-  let awesomeGame = new Game();
+	
 }, false);
 
 window.addEventListener("resize", () => {
