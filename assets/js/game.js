@@ -337,8 +337,8 @@ class Game {
   }
 
   killBrick($brick) {
-    $brick.style.borderColor = "#1f1f1f";
-    $brick.style.opacity = "0";
+    $brick.classList.add("dead");
+    this.bricks = Array.prototype.slice.call(document.querySelectorAll("#game-wrapper .icons > .icon:not(.dead)"));
   }
 
   moveBall() {
@@ -369,7 +369,7 @@ class Game {
           this.bricks.forEach(($brick) => {
             let isCollision = this.collision(this.ball, $brick);
   
-            if ($brick.style.opacity !== "0" && isCollision) {
+            if (isCollision) {
               if (this.settings.ballSpeed === DEFAULT_SPEED) {
                 this.killBrick($brick);
               }

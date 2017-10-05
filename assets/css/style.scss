@@ -163,6 +163,11 @@ div.icons {
     text-align: center;
     vertical-align: middle;
     transition: opacity 0.5s ease;
+
+    &.dead {
+      border-color: #1f1f1f;
+      opacity: 0;
+    }
   }
 }
 
@@ -1104,7 +1109,7 @@ figure.effect-bubba:hover p {
 }
 
 // Portfolio 
-
+/*
 #portfolio .portfolio-item {
   right: 0;
 }
@@ -1193,7 +1198,7 @@ span.heart-wrapper {
 
 .skills > .row {
   margin-top: 50px;
-}
+}*/
 
 .timeline {
   position: relative;
@@ -1400,17 +1405,12 @@ li.timeline-inverted:last-child .timeline-image h4 {
   color: white;
 }
 
-#myGameCanvas {
-  display: block;
-  margin: 0 auto;
-  width: 100%;
-}
-
 ul.articles {
   list-style: none;
+  padding: 0;
 
   li {
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 
     a {
       font-size: 2em;
