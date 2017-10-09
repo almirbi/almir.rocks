@@ -10,7 +10,8 @@ const gulp        = require('gulp'),
     fs = require('fs'),
     cleanCSS = require('gulp-clean-css'),
     autoprefixer = require('gulp-autoprefixer'),
-    del = require('del');
+    del = require('del'),
+    htmlmin = require('gulp-htmlmin');
 
 const config = {
     scssPath: './assets/css/**/*.scss',
@@ -48,10 +49,12 @@ gulp.task('critical-css', ['remove-index', 'sass'], function() {
           return fs.readFileSync(config.criticalCssPath, "utf8");
       }))
       .pipe(rename('index.html'))
+      .pipe(htmlmin({collapseWhitespace: true}))
       .pipe(gulp.dest('./'));
    });
 
 gulp.task('build', ['critical-css']);
+
 
 // Static Server + watching scss/html files
 gulp.task('serve', ['build'], function() {
