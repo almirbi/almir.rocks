@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .home-overlay,
 .intro {
     position: absolute;
@@ -67,9 +69,19 @@ span.annotated-comment.subtitle {
     color: #fff
 }
 #home {
-    background: url('/assets/images/cover.jpg') 50% 50% no-repeat fixed #222;
+    background: url('/assets/images/cover-320.jpg') 50% 50% no-repeat fixed #222;
     background-size: cover;
     overflow: hidden
+}
+@include respond-to(xx-small) {
+    #home {
+        background-image: url('/assets/images/cover-768.jpg');
+    }
+}
+@include respond-to(small) {
+    #home {
+        background-image: url('/assets/images/cover.jpg');
+    }
 }
 .home-overlay {
     background-color: rgba(44, 62, 80, .3);
