@@ -13,8 +13,8 @@
   <link rel="icon"
         type="image/png"
         href="assets/images/favicon.png">
+
   <title>A Curious Human Being</title>
-  <script>(new Image()).src = '/assets/images/cover.jpg';(new Image()).src = '/assets/images/pattern.png'</script>
   <style>/*CRITICALCSS*/</style>
 </head>
 <body>
@@ -42,10 +42,7 @@
   </a>
 
 </section>
-<script>function getWindowDimensions(){let a=window,b=document,c=b.documentElement,f=b.getElementsByTagName("body")[0],h=a.innerWidth||c.clientWidth||f.clientWidth,i=a.innerHeight||c.clientHeight||f.clientHeight;return{x:h,y:i}}function resizeHomeSection(){let{x:a,y:b}=getWindowDimensions();window.home.style.height=b+"px"}resizeHomeSection();</script>
-<!-- Home end -->
-
-<!-- Navigation start -->
+<script>/*RESIZE_HOME_JS*/</script>
 
 <header class="header">
 
@@ -426,22 +423,12 @@
     </div><!-- .row -->
   </div><!-- .container -->
 </footer>
-
-<!-- Footer end -->
-
-<!-- Scroll to top -->
-
 <div class="scroll-up">
   <a href="#home"><i class="fa fa-angle-up"></i></a>
 </div>
 
-<!-- Scroll to top end-->
-
-<!-- Javascript files -->
-<div id="delay-script-load" style="display: block; padding-top: 3000px"></div>
-<!-- Google Analytics -->
-<!--<script>(function(b,c,d,e,f,h,j){b.GoogleAnalyticsObject=f,b[f]=b[f]||function(){(b[f].q=b[f].q||[]).push(arguments)},b[f].l=1*new Date,h=c.createElement(d),j=c.getElementsByTagName(d)[0],h.async=1,h.src=e,j.parentNode.insertBefore(h,j)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-62816665-1','auto'),ga('send','pageview')</script>-->
+<script>/*GA_JS*/</script>
 <script async src="dist/bundle.js"></script>
-<script>function deferLoadCss(a){var b=document.createElement('link');b.rel='stylesheet',b.href=a,b.type='text/css';var c=document.getElementsByTagName('link')[0];c.parentNode.insertBefore(b,c)}deferLoadCss('/assets/bootstrap/css/bootstrap.min.css'),deferLoadCss('/assets/css/font-awesome.min.css'),deferLoadCss('/assets/css/style.css')</script>
+<script>/*LOAD_CSS_JS*/</script>
 </body>
 </html>

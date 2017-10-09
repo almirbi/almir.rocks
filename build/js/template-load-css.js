@@ -1,0 +1,1 @@
+"use strict";function deferLoadCss(s){var e=document.createElement("link");e.rel="stylesheet",e.href=s,e.type="text/css";var t=document.getElementsByTagName("link")[0];t.parentNode.insertBefore(e,t)}deferLoadCss("/assets/bootstrap/css/bootstrap.min.css"),deferLoadCss("/assets/css/font-awesome.min.css"),deferLoadCss("/assets/css/style.css");

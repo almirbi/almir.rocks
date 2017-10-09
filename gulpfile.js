@@ -11,15 +11,18 @@ const gulp        = require('gulp'),
     cleanCSS = require('gulp-clean-css'),
     autoprefixer = require('gulp-autoprefixer'),
     del = require('del'),
-    htmlmin = require('gulp-htmlmin');
+    htmlmin = require('gulp-htmlmin'),
+    runSequence = require('run-sequence');
 
 const config = {
     scssPath: './assets/css/**/*.scss',
     htmlPath: './*.html',
-    jsFiles: './assets/js/**/*.js',
+    jsFiles: ['./assets/js/*.js', './assets/js/template/*.js'],
+    bundleJsFiles: ['./assets/js/*.js'],
     cssDest: './assets/css/',
     cssPath: './assets/css/**/*.css',
-    criticalCssPath: './assets/css/critical.css'
+    criticalCssPath: './assets/css/critical.css',
+    jsTemplateDir: './build/js/'
 }
 
 
@@ -43,10 +46,19 @@ gulp.task('remove-index', function (done) { // ok
     done();
 });
 
-gulp.task('critical-css', ['remove-index', 'sass'], function() {
+gulp.task('critical-css', ['scripts', 'remove-index', 'sass'], function() {
     gulp.src(['./index-template.html'])
       .pipe(replace('/*CRITICALCSS*/', function(match) {
           return fs.readFileSync(config.criticalCssPath, "utf8");
+      }))
+      .pipe(replace('/*GA_JS*/', function(match) {
+        return fs.readFileSync(config.jsTemplateDir + 'template-ga.js', "utf8");
+      }))
+      .pipe(replace('/*RESIZE_HOME_JS*/', function(match) {
+        return fs.readFileSync(config.jsTemplateDir + 'template-resize-home.js', "utf8");
+      }))
+      .pipe(replace('/*LOAD_CSS_JS*/', function(match) {
+        return fs.readFileSync(config.jsTemplateDir + 'template-load-css.js', "utf8");
       }))
       .pipe(rename('index.html'))
       .pipe(htmlmin({collapseWhitespace: true}))
@@ -78,18 +90,32 @@ gulp.task('serve', ['build'], function() {
 
 // Compile sass into CSS & auto-inject into browsers
 
+gulp.task('scripts', (done) => {
+    runSequence(
+        'uglify-js',
+        'bundle-js',
+        done
+    );
+})
 
 
-
-gulp.task('scripts', (cb) => {
+gulp.task('uglify-js', (cb) => {
     pump([
         gulp.src(config.jsFiles),
-        concat('bundle.js'),
+        babel({
+            presets: ['env']
+        }),
         uglify(),
-        gulp.dest('dist')
-    ],
-    cb
-  );
+        gulp.dest('./build/js/')
+    ], cb);
 });
+
+gulp.task('bundle-js', (cb) => {
+    pump([
+        gulp.src(['./build/js/custom.js', './build/js/game.js']),
+        concat('bundle.js'),
+        gulp.dest('./dist')
+    ], cb);
+})
 
 gulp.task('default', ['serve']);

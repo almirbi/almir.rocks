@@ -1,0 +1,1 @@
+"use strict";function getWindowDimensions(){var e=window,i=document,n=i.documentElement,t=i.getElementsByTagName("body")[0];return{x:e.innerWidth||n.clientWidth||t.clientWidth,y:e.innerHeight||n.clientHeight||t.clientHeight}}function resizeHomeSection(){var e=getWindowDimensions(),i=(e.x,e.y);window.home.style.height=i+"px"}resizeHomeSection();
