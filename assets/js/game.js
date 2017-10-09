@@ -48,8 +48,6 @@ function enableScroll() {
 
 const DEFAULT_SPEED = mobilecheck() ? 4 : 6;
 
-console.log(`Speed set to ${DEFAULT_SPEED}`);
-
 class Game {
   constructor() {
     this.ball = document.getElementById("ball");
