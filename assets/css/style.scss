@@ -126,8 +126,27 @@ div.icons {
 
 span.annotated-comment.javascript {
   transform-origin: 0 0;
-  transform: rotate(40deg) translate(-150px, 100px);
+  transform: rotate(40deg) translate(-130px, 100px);
   font-size: 20px;
+}
+
+.explanation-wrapper {
+  display: block;
+}
+span.annotated-comment.game-explanation {
+  transform-origin: 0 0;
+  position: initial;
+  font-size: 20px;
+  float: right;
+
+  > span {
+    display: inline-block;
+  }
+
+  img {
+    width: 100px;
+    transform: rotate(-61deg) translate(4px, -57px);
+  }
 }
 
 span.annotated-comment.stockholm {
@@ -839,7 +858,35 @@ textarea.form-control {
  * Media
 /* ---------------------------------------------- */
 
+@media (max-width: 1199px) {
+  span.annotated-comment.game-explanation img {
+    width: 70px;
+    transform: rotate(-48deg) translate(1px, -15px);
+  }
+}
+
+@media (max-width: 991px) {
+  span.annotated-comment.game-explanation img {
+    width: 50px;
+    transform: rotate(3deg) translate(1px, 0px);
+  }
+}
+
 @media (max-width: 768px) {
+  span.annotated-comment.game-explanation {
+    width: 100%;
+    text-align: center
+  }
+
+  span.annotated-comment.game-explanation img {
+    display: block;
+    transform: initial;
+    margin: 10px auto;
+  }
+
+  span.annotated-comment.game-explanation span {
+    display: block;
+  }
 
   .calltoaction {
     text-align: center;

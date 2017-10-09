@@ -1,8 +1,9 @@
-window.addEventListener('load', () => {
-  let delayer = document.getElementById('delay-script-load');
-  delayer.parentElement.removeChild(delayer);
 
-  setTimeout(() => {
+
+window.addEventListener('load', () => {
+
+  function startGame() {
+    window.removeEventListener('scroll', startGame);
     let icons = document.querySelector("#game-wrapper .icons");
     let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "d3js", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
   
@@ -27,6 +28,15 @@ window.addEventListener('load', () => {
     });
   
     let awesomeGame = new Game();
+  }
+
+  window.addEventListener('scroll', startGame);
+
+  let images = [...document.querySelectorAll('img')];
+  images.forEach((image) => {
+    if (image.dataset.src) {
+      image.src = image.dataset.src;
+    }
   });
 	
 }, false);
