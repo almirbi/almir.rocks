@@ -46,7 +46,7 @@ function enableScroll() {
     document.onkeydown = null;  
 }
 
-const DEFAULT_SPEED = mobilecheck() ? 4 : 6;
+const DEFAULT_SPEED = mobilecheck() ? 4 : 8;
 
 console.log(`Speed set to ${DEFAULT_SPEED}`);
 
@@ -103,6 +103,9 @@ class Game {
   handleEnd(event) {
     if (event.button == 0 || event.button === undefined) {
       this.isDragging = false;
+      if (this.removeMessageTimeout) {
+        clearTimeout(this.removeMessageTimeout);
+      }
       enableScroll();
       this.gameWindow.classList.add("paused");
       this.slowBallDown(() => {
@@ -131,6 +134,12 @@ class Game {
 
     if (event.button == 0 || event.button === undefined) {
       this.isDragging = true;
+      this.removeMessageTimeout = setTimeout(() => {
+        let explanation = document.querySelector(".explanation-wrapper");
+        let content = explanation.querySelector("span");
+        explanation.style.setProperty("height", explanation.offsetHeight + "px");
+        explanation.removeChild(content);
+      }, 5 * 1000);
       disableScroll();
 
       switch(this.state) {
