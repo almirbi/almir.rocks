@@ -12,7 +12,8 @@ const gulp        = require('gulp'),
     autoprefixer = require('gulp-autoprefixer'),
     del = require('del'),
     htmlmin = require('gulp-htmlmin'),
-    runSequence = require('run-sequence');
+    runSequence = require('run-sequence'),
+    sourcemaps = require('gulp-sourcemaps');
 
 const config = {
     scssPath: './assets/css/**/*.scss',
@@ -43,6 +44,7 @@ return gulp.src(config.cssPath)
 
 gulp.task('remove-index', function (done) { // ok
     del.sync(['index.html']);
+    del.sync(['index-dev.html']);
     done();
 });
 
@@ -86,7 +88,10 @@ gulp.task('reload-browser', (done) => {
 gulp.task('serve', ['build'], function() {
 
     browserSync.init({
-        server: "./",
+        server: {
+            baseDirr: "./",
+            index: "index-dev.html"
+        },
         port: 3001
     });
 
@@ -107,6 +112,7 @@ gulp.task('serve', ['build'], function() {
 
 gulp.task('scripts', (done) => {
     runSequence(
+        
         'uglify-js',
         'bundle-js',
         done
@@ -117,10 +123,12 @@ gulp.task('scripts', (done) => {
 gulp.task('uglify-js', (cb) => {
     pump([
         gulp.src(config.jsFiles),
+        sourcemaps.init(),
         babel({
             presets: ['env']
         }),
-        uglify(),
+        // uglify(),
+        sourcemaps.write(),
         gulp.dest('./build/js/')
     ], cb);
 });
@@ -128,7 +136,9 @@ gulp.task('uglify-js', (cb) => {
 gulp.task('bundle-js', (cb) => {
     pump([
         gulp.src(['./build/js/custom.js', './build/js/game.js']),
+        sourcemaps.init({loadMaps: true}),
         concat('bundle.js'),
+        sourcemaps.write(),
         gulp.dest('./dist')
     ], cb);
 })
