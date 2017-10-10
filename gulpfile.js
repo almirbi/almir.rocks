@@ -64,7 +64,7 @@ gulp.task('critical-css', ['scripts', 'remove-index', 'sass'], (done) => {
             return fs.readFileSync(config.jsTemplateDir + 'template-load-css.js', "utf8");
         }),
         rename('index.html'),
-        htmlmin({collapseWhitespace: true}),
+        htmlmin({collapseWhitespace: true, minifyJS: true}),
         gulp.dest('./'),
     ], done);
 });
