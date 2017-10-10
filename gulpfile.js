@@ -112,7 +112,7 @@ gulp.task('serve', ['build'], function() {
 
 gulp.task('scripts', (done) => {
     runSequence(
-        
+        'transpile-js',
         'uglify-js',
         'bundle-js',
         done
@@ -120,14 +120,24 @@ gulp.task('scripts', (done) => {
 })
 
 
-gulp.task('uglify-js', (cb) => {
+gulp.task('transpile-js', (cb) => {
     pump([
         gulp.src(config.jsFiles),
         sourcemaps.init(),
         babel({
             presets: ['env']
         }),
-        // uglify(),
+        sourcemaps.write(),
+        gulp.dest('./build/js/')
+    ], cb);
+});
+
+
+gulp.task('uglify-js', (cb) => {
+    pump([
+        gulp.src(config.jsFiles),
+        sourcemaps.init({loadMaps: true}),
+        uglify(),
         sourcemaps.write(),
         gulp.dest('./build/js/')
     ], cb);
