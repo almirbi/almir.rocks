@@ -9,7 +9,8 @@
 body {
     font: 300 14px/1.8 Raleway, sans-serif;
     color: #212121;
-    overflow-x: hidden
+    overflow-x: hidden;
+    margin: 0;
 }
 img {
     max-width: 100%;
@@ -112,5 +113,50 @@ span.annotated-comment.subtitle {
 }
 span.strikethrough {
     outline: 1px solid red;
-    outline-offset: -12px;
+    outline-offset: -11px;
+    font-family: Arial,Times,sans-serif;
+
+     > span {
+         font-family: Raleway,Arial,Times,sans-serif;
+     }
+}
+
+img {
+    max-width: 100px;
+}
+
+@include respond-to(xx-small) {
+	.intro {
+		top: 30%;
+	}
+
+    span.annotated-comment.subtitle {
+        transform: translate(100px);
+    }
+}
+
+@include respond-to(x-small) {
+	.intro {
+		top: 50%;
+	}
+
+    span.annotated-comment.subtitle {
+        transform: translate(0, 15px);
+    }
+}
+
+@include respond-to(x-large) {
+	.intro {
+		top: 50%;
+	}
+
+    span.annotated-comment.subtitle {
+        transform: translate(0, 15px);
+        @include respond-to-height(x-large) {
+            font-size: 30px;
+        }     
+
+
+        max-width: 400px;
+    }
 }

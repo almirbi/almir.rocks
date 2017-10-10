@@ -46,26 +46,40 @@ gulp.task('remove-index', function (done) { // ok
     done();
 });
 
-gulp.task('critical-css', ['scripts', 'remove-index', 'sass'], function() {
-    gulp.src(['./index-template.html'])
-      .pipe(replace('/*CRITICALCSS*/', function(match) {
+gulp.task('critical-css', ['scripts', 'remove-index', 'sass'], (done) => {
+    pump([
+        gulp.src(['./index-template.html']),
+        replace('/*CRITICALCSS*/', function(match) {
           return fs.readFileSync(config.criticalCssPath, "utf8");
-      }))
-      .pipe(replace('/*GA_JS*/', function(match) {
-        return fs.readFileSync(config.jsTemplateDir + 'template-ga.js', "utf8");
-      }))
-      .pipe(replace('/*RESIZE_HOME_JS*/', function(match) {
-        return fs.readFileSync(config.jsTemplateDir + 'template-resize-home.js', "utf8");
-      }))
-      .pipe(replace('/*LOAD_CSS_JS*/', function(match) {
-        return fs.readFileSync(config.jsTemplateDir + 'template-load-css.js', "utf8");
-      }))
-      .pipe(rename('index.html'))
-      .pipe(htmlmin({collapseWhitespace: true}))
-      .pipe(gulp.dest('./'));
-   });
+        }),
+        replace('/*GA_JS*/', function(match) {
+            return fs.readFileSync(config.jsTemplateDir + 'template-ga.js', "utf8");
+        }),
+        replace('/*RESIZE_HOME_JS*/', function(match) {
+            return fs.readFileSync(config.jsTemplateDir + 'template-resize-home.js', "utf8");
+        }),
+        replace('/*LOAD_CSS_JS*/', function(match) {
+            return fs.readFileSync(config.jsTemplateDir + 'template-load-css.js', "utf8");
+        }),
+        rename('index.html'),
+        htmlmin({collapseWhitespace: true}),
+        gulp.dest('./'),
+    ], done);
+});
 
-gulp.task('build', ['critical-css']);
+gulp.task('build', (done) => {
+    runSequence(
+        'critical-css',
+        'reload-browser',
+        done
+    );
+});
+
+gulp.task('reload-browser', (done) => {
+    browserSync.reload();
+    done();
+})
+
 
 
 // Static Server + watching scss/html files
@@ -78,14 +92,15 @@ gulp.task('serve', ['build'], function() {
 
     // CSS
     gulp.watch(config.cssPath, ['css']);
-    gulp.watch(config.scssPath, ['sass']);
+    // gulp.watch(config.scssPath, ['sass']);
 
     // HTML
-    gulp.watch('./index.html').on('all', () => { browserSync.reload() });
-    gulp.watch('./index-template.html', ['critical-css']);
+    gulp.watch('./index-template.html', ['build']);
+    gulp.watch(config.jsFiles, ['build']);
+    gulp.watch(config.jsFiles, ['build']);
+    gulp.watch(config.scssPath, ['build']);
     
     // JS
-    gulp.watch(config.jsFiles, ['scripts', browserSync.reload]);
 });
 
 // Compile sass into CSS & auto-inject into browsers
