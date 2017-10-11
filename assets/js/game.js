@@ -136,10 +136,15 @@ class Game {
       this.isDragging = true;
       this.removeMessageTimeout = setTimeout(() => {
         let explanation = document.querySelector(".explanation-wrapper");
-        let content = explanation.querySelector("span");
+        let image = explanation.querySelector("span > img");
+        if (!image) {
+          return;
+        }
+        let text = explanation.querySelector("span > span");
         explanation.style.setProperty("height", explanation.offsetHeight + "px");
-        explanation.removeChild(content);
-      }, 5 * 1000);
+        image.parentElement.removeChild(image);
+        text.innerHTML = "Release to pause";
+      }, 3 * 1000);
       disableScroll();
 
       switch(this.state) {

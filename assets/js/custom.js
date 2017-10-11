@@ -6,7 +6,7 @@ window.addEventListener('load', () => {
     window.removeEventListener('scroll', startGame);
     
     let icons = document.querySelector("#game-wrapper .icons");
-    let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "d3js", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
+    let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "vagrant", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
   
     let divRow;
   
@@ -20,6 +20,7 @@ window.addEventListener('load', () => {
       let image = document.createElement("img");
       let iconWrap = document.createElement("div");
       iconWrap.className = "icon";
+      image.alt = tech;
       image.title = tech;
       image.src = "assets/images/" + tech + ".svg";
       iconWrap.dataset.name = tech;

@@ -115,6 +115,11 @@ div.icons {
     vertical-align: middle;
     transition: opacity 0.5s ease;
 
+    img {
+      max-height: 100%;
+      max-width: 100%;
+    }
+
     &.dead {
       border-color: #1f1f1f;
       opacity: 0;
@@ -154,6 +159,12 @@ span.annotated-comment.game-explanation {
   img {
     width: 100px;
     transform: rotate(-61deg) translate(-12px, -57px);
+  }
+}
+
+@include respond-to(large) {
+  span.annotated-comment.game-explanation {
+    padding-right: 150px;
   }
 }
 
@@ -555,6 +566,10 @@ textarea.form-control {
 
 .copyright {
   margin: 0;
+
+  .code {
+    font-size: 12px;
+  }
 }
 
 .copyright a {
@@ -770,13 +785,6 @@ textarea.form-control {
 }
 
 @media (max-width: 991px) {
-  span.annotated-comment.game-explanation img {
-    width: 50px;
-    transform: rotate(3deg) translate(1px, 0px);
-  }
-}
-
-@media (max-width: 768px) {
   span.annotated-comment.game-explanation {
     width: 100%;
     text-align: center
