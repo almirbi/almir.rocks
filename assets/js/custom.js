@@ -45,7 +45,6 @@ window.addEventListener('load', () => {
 
 window.addEventListener("resize", () => {
   requestAnimationFrame(resizeHomeSection);
-  
 });
 
 let links = [...document.querySelectorAll("a[href^='#'")];
@@ -54,5 +53,5 @@ links.forEach(link => {
     event.preventDefault();
     document.querySelector(link.getAttribute('href')).scrollIntoView({behavior: "smooth"});
     return false;
-  })
+  });
 });

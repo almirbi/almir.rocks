@@ -127,7 +127,6 @@ class Game {
         }
       });
     }
-    
   }
 
   handleStart(event) {
@@ -347,7 +346,7 @@ class Game {
         return 'right';
     }
 
-    let rightPadEdge = {
+    /*let rightPadEdge = {
       radius: this.pad.offsetHeight/2, 
       x: this.getElementOffsetLeft(this.pad) + this.pad.offsetWidth - this.pad.offsetHeight/2, 
       y: this.gameWindow.offsetHeight - this.getElementOffsetTop(this.pad) - this.pad.offsetWidth/2
@@ -367,20 +366,23 @@ class Game {
     if (this.collision(rightPadEdge, ball, false)) {
       this.direction.x = 1;
       this.direction.y = 1;
+      return 'pad';
     } else if (this.collision(leftPadEdge, ball, false)) {
       this.direction.x = -1;
       this.direction.y = 1;
-    }
+      return 'pad';
+    }*/
     
     
 
     if (this.getElementOffsetTop(this.ball) + 21 >= y - parseInt(this.ball.offsetHeight) && this.direction.y === -1) {
         if (this.getElementOffsetLeft(this.ball) > this.getElementOffsetLeft(this.pad) - this.ball.offsetWidth - 5 && this.getElementOffsetLeft(this.ball) < this.getElementOffsetLeft(this.pad) + this.pad.offsetWidth) {
             this.direction.y = 1;
+            return 'pad';
         }
     }
 
-    return 'pad';
+    
 
     return false;
   }
@@ -396,6 +398,8 @@ class Game {
       }
     }
 
+    this.bricks.splice(toRemove, 1);
+
     ga('send', {
       hitType: 'event',
       eventCategory: 'Game',
@@ -403,8 +407,6 @@ class Game {
       eventLabel: 'Brick Hits',
       eventValue: $brick.dataset.name
     });
-
-    this.bricks.splice(toRemove, 1);
   }
 
   moveBall() {
@@ -419,7 +421,6 @@ class Game {
         let bounceSide = this.bounce();
 
         if (bounceSide) {
-            // console.log(bounceSide);
             this.blinkBorder(bounceSide);
         }
 
@@ -427,11 +428,6 @@ class Game {
             a = this.getElementOffsetTop(this.ball),
             b = this.direction.y * -1,
             top = a + b + "px";
-
-        /*if (this.isFirefox) {
-            b++;
-            top = a + b + "px";
-        }*/
 
         this.ball.style.setProperty("left", left);
         this.ball.style.setProperty("top", top);
