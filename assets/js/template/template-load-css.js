@@ -6,6 +6,8 @@ function deferLoadCss(name) {
   var godefer = document.getElementsByTagName('link')[0];
   godefer.parentNode.insertBefore(giftofspeed, godefer);
 }
-deferLoadCss('/assets/bootstrap/css/bootstrap.min.css');
-deferLoadCss('/assets/css/font-awesome.min.css');
-deferLoadCss('/assets/css/style.css');
+setTimeout(() => {
+  deferLoadCss('/assets/bootstrap/css/bootstrap.min.css');
+  deferLoadCss('/assets/css/font-awesome.min.css');
+  deferLoadCss('/assets/css/style.css');  
+}, 500);
