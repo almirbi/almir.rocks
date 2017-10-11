@@ -44,7 +44,8 @@ window.addEventListener('load', () => {
 }, false);
 
 window.addEventListener("resize", () => {
-  resizeHomeSection();
+  requestAnimationFrame(resizeHomeSection);
+  
 });
 
 let links = [...document.querySelectorAll("a[href^='#'")];
