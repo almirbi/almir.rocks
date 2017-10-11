@@ -195,7 +195,7 @@ class Game {
       // change to display = block must bome before ball.offsetHeight
       // because offsetHeight for elements not in the DOM will be 0
       this.ball.style.display = "block";
-      this.ball.style.left = this.getElementOffsetLeft(this.pad) + 20 + "px";
+      this.ball.style.left = this.getElementOffsetLeft(this.pad) + (this.pad.offsetWidth - this.ball.offsetWidth/2) + "px";
       this.ball.style.top = (this.getElementOffsetTop(this.pad.parentElement) - this.ball.offsetHeight) + "px";
       this.state = State.RUNNING;
       this.gameWindow.className = "";
@@ -263,7 +263,7 @@ class Game {
       circle1 = {
         radius: $div1.offsetHeight/2, 
         x: this.getElementOffsetLeft($div1) + $div1.offsetHeight/2, 
-        y: this.gameWindow.offsetHeight - this.getElementOffsetTop($div1) - 15
+        y: this.gameWindow.offsetHeight - this.getElementOffsetTop($div1) - $div1.offsetWidth/2
       };
       circle2 = {
         radius: $div2.offsetWidth/2,
@@ -310,6 +310,10 @@ class Game {
     let x = this.gameWindow.offsetWidth, 
         y = this.gameWindow.offsetHeight;
 
+    if (this.pad.parentElement.offsetTop + 10 < this.ball.offsetTop + this.ball.offsetHeight) {
+      throw 'Lost';
+    }
+
     if (this.getElementOffsetLeft(this.ball) <= 0 && this.direction.x === -1) {
         this.ball.style.setProperty("left", 0);
         this.direction.x = 1;
@@ -328,14 +332,40 @@ class Game {
         return 'right';
     }
 
+    let rightPadEdge = {
+      radius: this.pad.offsetHeight/2, 
+      x: this.getElementOffsetLeft(this.pad) + this.pad.offsetWidth - this.pad.offsetHeight/2, 
+      y: this.gameWindow.offsetHeight - this.getElementOffsetTop(this.pad) - this.pad.offsetWidth/2
+    };
+    let leftPadEdge = {
+      radius: this.pad.offsetHeight/2, 
+      x: this.getElementOffsetLeft(this.pad) - this.pad.offsetWidth + this.pad.offsetHeight/2, 
+      y: this.gameWindow.offsetHeight - this.getElementOffsetTop(this.pad) - this.pad.offsetWidth/2
+    };
+
+    let ball = {
+      radius: this.ball.offsetHeight/2, 
+      x: this.getElementOffsetLeft(this.ball) + this.ball.offsetHeight/2, 
+      y: this.gameWindow.offsetHeight - this.getElementOffsetTop(this.ball) - this.ball.offsetWidth/2
+    };
+
+    if (this.collision(rightPadEdge, ball, false)) {
+      this.direction.x = 1;
+      this.direction.y = 1;
+    } else if (this.collision(leftPadEdge, ball, false)) {
+      this.direction.x = -1;
+      this.direction.y = 1;
+    }
+    
+    
+
     if (this.getElementOffsetTop(this.ball) + 21 >= y - parseInt(this.ball.offsetHeight) && this.direction.y === -1) {
         if (this.getElementOffsetLeft(this.ball) > this.getElementOffsetLeft(this.pad) - this.ball.offsetWidth - 5 && this.getElementOffsetLeft(this.ball) < this.getElementOffsetLeft(this.pad) + this.pad.offsetWidth) {
             this.direction.y = 1;
-            return 'pad';
-        } else {
-            throw 'Lost';
         }
     }
+
+    return 'pad';
 
     return false;
   }

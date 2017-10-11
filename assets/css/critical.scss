@@ -28,7 +28,8 @@ span.annotated-comment {
     color: #F44336;
     font-size: 16px;
     position: absolute;
-    z-index: 100
+    z-index: 100;
+    font-weight: 400;
 }
 span.annotated-comment>span {
     display: block;

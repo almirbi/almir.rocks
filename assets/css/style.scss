@@ -1,5 +1,5 @@
-@import url(https://fonts.googleapis.com/css?family=Raleway:400,300,500,700,800);
-@import url('https://fonts.googleapis.com/css?family=Rock+Salt:100,200,300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Raleway:300,800');
+@import url('https://fonts.googleapis.com/css?family=Rock+Salt:400');
 /*!
  * My Portfolio v1.0.0
  * Homepage: https://scripteden.com
@@ -18,7 +18,7 @@ $secondary-text-color: #757575;
 $divider-color: #BDBDBD;
 $icy-ice-blue: #D4F0FF;
 $amber: #FFC107;
-$ajla-gray: #1f1f1f;
+$font-weight-bold: 800;
 
 body {
   font: 300 14px/1.8 'Raleway', sans-serif;
@@ -233,8 +233,8 @@ span.annotated-comment.stockholm {
   #ball {
     position: absolute;
     background: $amber;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     border-radius: 100%;
     left: 50%;
     bottom: 20px;
@@ -243,8 +243,8 @@ span.annotated-comment.stockholm {
 
     i {
       transition: opacity 0.3s, color 2s;
-      margin-top: 9px;
-      margin-left: 9px;
+      margin-top: 13px;
+      margin-left: 13px;
       color: $primary-text-color;
       opacity: 0;
     }
@@ -284,7 +284,7 @@ a,
 /* ---------------------------------------------- */
 
 h1, h2, h3, h4, h5, h6 {
-  font: 700 60px/1.2 Raleway, sans-serif;
+  font: 800 60px/1.2 Raleway, sans-serif;
   text-transform: uppercase;
   letter-spacing: 5px;
   margin: 5px 0 5px;
@@ -348,7 +348,7 @@ h6 {
   background: #D8E1E4;
   border: 2px solid #D8E1E4;
   padding: 6px 15px;
-  font-weight: 700;
+  font-weight: $font-weight-bold;
 }
 
 /* ---------------------------------------------- /*
@@ -489,7 +489,7 @@ textarea.form-control {
 }
 
 .pfblock-title {
-  font-weight: 800;
+  font-weight: $font-weight-bold;
 }
 
 .pfblock-subtitle {
@@ -508,73 +508,6 @@ textarea.form-control {
 .pfblock-icon {
   font-size: 32px;
 }
-
-.calltoaction * {
-  text-align: center;
-}
-
-.calltoaction {
-  position: relative;
-  background-color: #222;
-  background-repeat: no-repeat;
-  background-position: 0 0;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  padding: 50px 0;
-  color: #999;
-}
-
-.calltoaction canvas {
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  right: 0;
-}
-
-.calltoaction #bubbles {
-  width: 100%;
-  display: block;
-}
-
-.calltoaction .container {
-  width: 400px;
-}
-
-.calltoaction h2 {
-  font-size: 20px;
-  letter-spacing: 1px;
-  margin-bottom: 5px;
-}
-
-.calltoaction-decription {
-  padding-top: 20px;
-  padding-bottom: 30px;
-  font-size: 20px;
-  color: #fff;
-}
-
-.calltoaction-btn {
-  text-align: center;
-}
-
-.calltoaction-btn > .btn {
-  background: rgba(255, 255, 255, .8);
-  color: #111;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-.calltoaction-btn > .btn:hover {
-  background: #fff;
-}
-
-.long-down {
-  margin-bottom: 40px;
-}
-
-
 
 /* ---------------------------------------------- /*
  * Servise
@@ -597,40 +530,8 @@ textarea.form-control {
 
 .iconbox-title {
   margin: 0 0 15px;
+  font-weight: $font-weight-bold;
   padding: 0;
-}
-
-/* ---------------------------------------------- /*
- * Skills
-/* ---------------------------------------------- */
-
-.chart {
-  display: inline-block;
-  height: 140px;
-  margin: 50px 0;
-  position: relative;
-  text-align: center;
-  width: 140px;
-}
-
-.chart canvas {
-  left: 0;
-  position: absolute;
-  top: 0;
-}
-
-.percent {
-  display: inline-block;
-  font-size: 25px;
-  font-weight: 300;
-  line-height: 140px;
-  z-index: 2;
-}
-
-.percent:after {
-  content: "%";
-  font-size: 50%;
-  margin-left: 0.1em;
 }
 
 /* ---------------------------------------------- /*
@@ -738,7 +639,7 @@ textarea.form-control {
 }
 
 .navbar-custom .navbar-brand {
-  font-weight: 700;
+  font-weight: $font-weight-bold;
   font-size: 22px;
 }
 
@@ -856,11 +757,6 @@ textarea.form-control {
   }
 }
 
-/* ---------------------------------------------- /*
- * Preloader
-/* ---------------------------------------------- */
-
-
 
 /* ---------------------------------------------- /*
  * Media
@@ -936,173 +832,6 @@ textarea.form-control {
 
 }
 
-/*--------------------------------*/
-/***** Portfolio Common style *****/
-/*--------------------------------*/
-
-.grid {
-  position: relative;
-  clear: both;
-  margin: 0 auto;
-  padding: 1em 0 4em;
-  max-width: 100%;
-  list-style: none;
-  text-align: center;
-}
-
-.grid h2 {
-  font-size: 20px;
-}
-
-.grid figure {
-  position: relative;
-  float: left;
-  overflow: hidden;
-  margin: 10px 1%;
-  min-width: 100%;
-  max-width: 100%;
-  height: auto;
-  background: #3085a3;
-  text-align: center;
-  cursor: pointer;
-}
-
-.grid figure img {
-  position: relative;
-  display: block;
-  min-height: 100%;
-  max-width: 100%;
-  opacity: 0.8;
-}
-
-.grid figure figcaption {
-  padding: 2em;
-  color: #fff;
-  text-transform: uppercase;
-  font-size: 1.25em;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-}
-
-.grid figure figcaption::before,
-.grid figure figcaption::after {
-  pointer-events: none;
-}
-
-.grid figure figcaption,
-.grid figure figcaption > a {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-/* Anchor will cover the whole item by default */
-/* For some effects it will show as a button */
-.grid figure figcaption > a {
-  z-index: 1000;
-  text-indent: 200%;
-  white-space: nowrap;
-  font-size: 0;
-  opacity: 0;
-}
-
-.grid figure h2 {
-  word-spacing: -0.15em;
-  font-weight: 300;
-}
-
-.grid figure h2 span {
-  font-weight: 800;
-}
-
-.grid figure h2,
-.grid figure p {
-  margin: 0;
-}
-
-.grid figure p {
-  letter-spacing: 1px;
-  font-size: 68.5%;
-}
-
-/*---------------*/
-/***** Bubba *****/
-/*---------------*/
-
-figure.effect-bubba {
-  background: #9e5406;
-}
-
-figure.effect-bubba img {
-  opacity: 0.7;
-  -webkit-transition: opacity 0.35s;
-  transition: opacity 0.35s;
-}
-
-figure.effect-bubba:hover img {
-  opacity: 0.4;
-}
-
-figure.effect-bubba figcaption::before,
-figure.effect-bubba figcaption::after {
-  position: absolute;
-  top: 30px;
-  right: 30px;
-  bottom: 30px;
-  left: 30px;
-  content: '';
-  opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-}
-
-figure.effect-bubba figcaption::before {
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
-  -webkit-transform: scale(0, 1);
-  transform: scale(0, 1);
-}
-
-figure.effect-bubba figcaption::after {
-  border-right: 1px solid #fff;
-  border-left: 1px solid #fff;
-  -webkit-transform: scale(1, 0);
-  transform: scale(1, 0);
-}
-
-figure.effect-bubba h2 {
-  padding-top: 10%;
-  -webkit-transition: -webkit-transform 0.35s;
-  transition: transform 0.35s;
-  -webkit-transform: translate3d(0, -20px, 0);
-  transform: translate3d(0, -20px, 0);
-  color: #fff;
-}
-
-figure.effect-bubba p {
-  padding: 20px 2.5em;
-  opacity: 0;
-  -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
-  transition: opacity 0.35s, transform 0.35s;
-  -webkit-transform: translate3d(0, 20px, 0);
-  transform: translate3d(0, 20px, 0);
-}
-
-figure.effect-bubba:hover figcaption::before,
-figure.effect-bubba:hover figcaption::after {
-  opacity: 1;
-  -webkit-transform: scale(1);
-  transform: scale(1);
-}
-
-figure.effect-bubba:hover h2,
-figure.effect-bubba:hover p {
-  opacity: 1;
-  -webkit-transform: translate3d(0, 0, 0);
-  transform: translate3d(0, 0, 0);
-}
 
 .text-center {
   text-align: center;
@@ -1265,35 +994,6 @@ figure.effect-bubba:hover p {
     padding: 0 30px 20px 20px;
     text-align: left;
   }
-}
-
-
-#portfolio .modal {
-  left: 10%;
-  right: 10%;
-}
-
-video {
-  max-width: 100%;
-}
-
-#personal img.big {
-  width: 100%;
-  max-width: 220px;
-}
-
-#personal img.small {
-  width: 40%;
-  max-width: 220px;
-}
-
-#personal {
-  background-color: $primary-color;
-  color: $accent-color;
-}
-
-#personal h2 {
-  color: white;
 }
 
 @media(min-width: 768px) {
