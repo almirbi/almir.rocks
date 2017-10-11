@@ -67,8 +67,6 @@ class Game {
     };
     this.isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') > -1;
 
-    
-
     this.pad.addEventListener("touchstart", this.handleStart.bind(this), false);
     this.pad.addEventListener("mousedown", this.handleStart.bind(this), false);
 
@@ -76,8 +74,17 @@ class Game {
     document.addEventListener("touchcancel", this.handleEnd.bind(this), false);
     document.addEventListener("mouseup", this.handleEnd.bind(this), false);
 
+    
+  }
+
+  attachEventListeners() {
     document.addEventListener("touchmove", this.handleMove.bind(this), false);
     document.addEventListener("mousemove", this.handleMove.bind(this), false);
+  }
+
+  deattachEventListeners() {
+    document.removeEventListener("touchmove", this.handleMove, false);
+    document.removeEventListener("mousemove", this.handleMove, false);
   }
 
   handleMove(event) {
@@ -92,6 +99,7 @@ class Game {
         }
         event.cancelBubble = true;
         event.returnValue = false;
+      
       let {x, y} = this.getWindowDimensions(),
         left = "", clientX = event.clientX || event.touches[0].clientX;
       left = (clientX - ((x - this.gameWindow.offsetWidth)/2)) + "px"
@@ -106,6 +114,7 @@ class Game {
       if (this.removeMessageTimeout) {
         clearTimeout(this.removeMessageTimeout);
       }
+      this.deattachEventListeners();
       enableScroll();
       this.gameWindow.classList.add("paused");
       this.slowBallDown(() => {
@@ -134,6 +143,7 @@ class Game {
 
     if (event.button == 0 || event.button === undefined) {
       this.isDragging = true;
+      this.attachEventListeners();
       this.removeMessageTimeout = setTimeout(() => {
         let explanation = document.querySelector(".explanation-wrapper");
         let image = explanation.querySelector("span > img");
