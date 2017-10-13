@@ -44,6 +44,7 @@ window.addEventListener('load', () => {
 
   let contactForm = document.getElementById("contact-form");
   contactForm.addEventListener("submit", (event) => {
+    event.preventDefault();
     var http = new XMLHttpRequest();
     var url = "/assets/php/handleFormSubmit.php";
     let post = {
@@ -63,6 +64,7 @@ window.addEventListener('load', () => {
         }
     }
     http.send(params);
+    return false;
   });
 
   window.addEventListener('scroll', startGame);
