@@ -2,7 +2,8 @@ const State = {
   PAUSED: 'paused',
   VIRGIN: 'virgin',
   RUNNING: 'running',
-  LOST: 'lost'
+  LOST: 'lost',
+  WIN: 'win'
 };
 window.mobilecheck = function() {
   var check = false;
@@ -55,7 +56,7 @@ class Game {
     this.ball = document.getElementById("ball");
     this.pad = document.getElementById("pad");
     this.gameWindow = document.getElementById("game-wrapper");
-    this.bricks = Array.prototype.slice.call(document.querySelectorAll("#game-wrapper .icons > .icon"));
+    this.bricks = this.getBricks();
     this.isDragging = false;
     this.direction = {
       x: 1,
@@ -73,8 +74,10 @@ class Game {
     document.addEventListener("touchend", this.handleEnd.bind(this), false);
     document.addEventListener("touchcancel", this.handleEnd.bind(this), false);
     document.addEventListener("mouseup", this.handleEnd.bind(this), false);
+  }
 
-    
+  getBricks() {
+    return Array.prototype.slice.call(this.gameWindow.querySelectorAll(".icons > .icon"))
   }
 
   attachEventListeners() {
@@ -88,8 +91,6 @@ class Game {
   }
 
   handleMove(event) {
-    
-    
     if (this.isDragging) {
         if(event.stopPropagation) {
             event.stopPropagation();
@@ -345,39 +346,12 @@ class Game {
         this.direction.x = -1;
         return 'right';
     }
-
-    /*let rightPadEdge = {
-      radius: this.pad.offsetHeight/2, 
-      x: this.getElementOffsetLeft(this.pad) + this.pad.offsetWidth - this.pad.offsetHeight/2, 
-      y: this.gameWindow.offsetHeight - this.getElementOffsetTop(this.pad) - this.pad.offsetWidth/2
-    };
-    let leftPadEdge = {
-      radius: this.pad.offsetHeight/2, 
-      x: this.getElementOffsetLeft(this.pad) - this.pad.offsetWidth + this.pad.offsetHeight/2, 
-      y: this.gameWindow.offsetHeight - this.getElementOffsetTop(this.pad) - this.pad.offsetWidth/2
-    };
-
-    let ball = {
-      radius: this.ball.offsetHeight/2, 
-      x: this.getElementOffsetLeft(this.ball) + this.ball.offsetHeight/2, 
-      y: this.gameWindow.offsetHeight - this.getElementOffsetTop(this.ball) - this.ball.offsetWidth/2
-    };
-
-    if (this.collision(rightPadEdge, ball, false)) {
-      this.direction.x = 1;
-      this.direction.y = 1;
-      return 'pad';
-    } else if (this.collision(leftPadEdge, ball, false)) {
-      this.direction.x = -1;
-      this.direction.y = 1;
-      return 'pad';
-    }*/
-    
-    
+     
 
     if (this.getElementOffsetTop(this.ball) + 21 >= y - parseInt(this.ball.offsetHeight) && this.direction.y === -1) {
         if (this.getElementOffsetLeft(this.ball) > this.getElementOffsetLeft(this.pad) - this.ball.offsetWidth - 5 && this.getElementOffsetLeft(this.ball) < this.getElementOffsetLeft(this.pad) + this.pad.offsetWidth) {
             this.direction.y = 1;
+            console.log('pad!!!');
             return 'pad';
         }
     }
@@ -388,11 +362,11 @@ class Game {
   }
 
   killBrick($brick) {
-    $brick.classList.add("dead");
+    $brick.classList.remove("alive");
     let toRemove;
     for (let i = 0; i < this.bricks.length; i++) {
       let tmp = this.bricks[i];
-      if (tmp.classList.contains('dead')) {
+      if (!tmp.classList.contains('alive')) {
         toRemove = i;
         break;
       }
@@ -409,8 +383,26 @@ class Game {
     });
   }
 
+  victory() {
+    this.state = State.WIN;
+    let pauseIcon = this.ball.querySelector("i");
+    pauseIcon.parentElement.removeChild(pauseIcon);
+
+    this.ball.style.setProperty('background-image', "url('/assets/images/victory.jpg')");
+    this.ball.style.setProperty('background-size', 'contain');
+    this.ball.classList.add("victory");
+
+    let explanation = document.querySelector(".explanation-wrapper");
+    let text = explanation.querySelector("span > span");
+    text.innerHTML = "Victory!";
+  }
+
   moveBall() {
     try {
+
+      if (this.state == State.WIN) {
+        return;
+      }
 
       if (this.state == State.PAUSED) {
         requestAnimationFrame(() => { this.moveBall(); });
@@ -445,6 +437,9 @@ class Game {
             if (isCollision.x || isCollision.y) {
               if (this.settings.ballSpeed === DEFAULT_SPEED) {
                 this.killBrick($brick);
+                if (this.bricks.length === 0) {
+                  this.victory();
+                }
               }
               
               if (isCollision.x) {
@@ -456,9 +451,7 @@ class Game {
               }
             } 
           });
-        }
-        
-        
+        } 
       }
 
       requestAnimationFrame(() => { this.moveBall(); });

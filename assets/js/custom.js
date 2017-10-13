@@ -7,6 +7,7 @@ window.addEventListener('load', () => {
     
     let icons = document.querySelector("#game-wrapper .icons");
     let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "vagrant", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
+    // techs = ['angularjs'];
   
     let divRow;
   
@@ -19,7 +20,7 @@ window.addEventListener('load', () => {
   
       let image = document.createElement("img");
       let iconWrap = document.createElement("div");
-      iconWrap.className = "icon";
+      iconWrap.className = "icon alive";
       image.alt = tech;
       image.title = tech;
       image.src = "assets/images/" + tech + ".svg";
@@ -31,6 +32,38 @@ window.addEventListener('load', () => {
   
     let awesomeGame = new Game();
   }
+
+  let objectToQueryString = function(obj) {
+    var str = [];
+    for(var p in obj)
+      if (obj.hasOwnProperty(p)) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      }
+    return str.join("&");
+  }
+
+  let contactForm = document.getElementById("contact-form");
+  contactForm.addEventListener("submit", (event) => {
+    var http = new XMLHttpRequest();
+    var url = "/assets/php/handleFormSubmit.php";
+    let post = {
+      c_name : event.target.c_name.value,
+      c_message: event.target.c_message.value,
+      c_email: event.target.c_email.value
+    };
+    var params = objectToQueryString(post);
+    http.open("POST", url, true);
+    
+    //Send the proper header information along with the request
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+            alert(http.responseText);
+        }
+    }
+    http.send(params);
+  });
 
   window.addEventListener('scroll', startGame);
 

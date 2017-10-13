@@ -114,15 +114,16 @@ div.icons {
     text-align: center;
     vertical-align: middle;
     transition: opacity 0.5s ease;
+    border-color: #1f1f1f;
+    opacity: 0;
 
     img {
       max-height: 100%;
       max-width: 100%;
     }
 
-    &.dead {
-      border-color: #1f1f1f;
-      opacity: 0;
+    &.alive {
+      opacity: 1;
     }
   }
 }
@@ -176,6 +177,15 @@ span.annotated-comment.stockholm {
   transform: rotate(-10deg) translate(-150px, 100px);
 }
 
+@keyframes createBox {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(7);
+  }
+}
+
 #game-wrapper {
   position: relative;
   display: block;
@@ -207,6 +217,8 @@ span.annotated-comment.stockholm {
     }
   }
 
+
+
   &.lost {
     div.pad-wrapper {
       #pad {
@@ -226,13 +238,13 @@ span.annotated-comment.stockholm {
         left: 50%;
         margin-left: -50px;
         height: 20px;
-        background: $icy-ice-blue;
+        background-color: $icy-ice-blue;
         border: 1px solid $primary-text-color;
       }
   }
 
     #ball {
-      background: $icy-ice-blue;
+      background-color: $icy-ice-blue;
       i {
         display: inline-block;
         opacity: 1;
@@ -242,6 +254,7 @@ span.annotated-comment.stockholm {
   }
 
   #ball {
+    background-size: contain;
     position: absolute;
     background: $amber;
     width: 40px;
@@ -250,7 +263,9 @@ span.annotated-comment.stockholm {
     left: 50%;
     bottom: 20px;
 
-    
+    &.victory {
+      animation: createBox .25s forwards;
+    }
 
     i {
       transition: opacity 0.3s, color 2s;
@@ -548,6 +563,10 @@ textarea.form-control {
 /* ---------------------------------------------- /*
  * Contact
 /* ---------------------------------------------- */
+
+#contact .btn-lg {
+  width: 100%;
+}
 
 .ajax-response {
   text-align: center;
