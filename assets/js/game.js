@@ -394,7 +394,7 @@ class Game {
 
     let explanation = document.querySelector(".explanation-wrapper");
     let text = explanation.querySelector("span > span");
-    text.innerHTML = "Victory!";
+    text.innerHTML = "V is for Viiictory!";
   }
 
   moveBall() {
