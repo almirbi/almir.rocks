@@ -60,7 +60,8 @@ window.addEventListener('load', () => {
     
     http.onreadystatechange = function() {//Call a function when the state changes.
         if(http.readyState == 4 && http.status == 200) {
-            alert(http.responseText);
+          let response = document.querySelector("ajax-response");
+          respoonse.innerHTML = JSON.parse(http.responseText).message;
         }
     }
     http.send(params);
