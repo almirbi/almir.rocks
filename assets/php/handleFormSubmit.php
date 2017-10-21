@@ -15,7 +15,7 @@ if(isset($_POST['c_name'])){
 	// Send the message
 	if ($mailer->send($message)) {
 		$res['sendstatus'] = true;
-		$res['message'] = 'Form Submission Succesful';
+		$res['message'] = 'Thank you for contacting me! I will write you back asap.';
 		echo json_encode($res);
 	} else {
 		$res['sendstatus'] = false;
