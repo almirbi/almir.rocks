@@ -76,6 +76,9 @@ window.addEventListener('load', () => {
     setTimeout(() => {
       document.querySelector('#contact > .container').scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
     }, 200);
+    document.getElementById('sendMessage').addEventListener('focus', () => {
+      document.querySelector('#contact > .container').scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    });
     return false;
   });
 
