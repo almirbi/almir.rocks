@@ -7,7 +7,7 @@ if(isset($_POST['c_name'])){
 	                                ->setUsername($username) // Your Gmail Username
 	                                ->setPassword($password); // Your Gmail Password
 	$mailer = Swift_Mailer::newInstance($transport);
-	$message = Swift_Message::newInstance('New message from almirbijedic.rocks')
+	$message = Swift_Message::newInstance('@abrocks: New message from ' . $_POST['c_name'])
 	                        ->setFrom(array('almir.bij@gmail.com' => 'almirbijedic.rocks')) // can be $_POST['email'] etc...
 	                        ->setTo(array('almir.bij@gmail.com' => 'Almir Bijedic')) // your email / multiple supported.
 	                        ->setBody($_POST['c_message'] . "\nName:" . $_POST['c_name'] . "\nEmail:" . $_POST['c_email']);
