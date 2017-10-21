@@ -115,7 +115,8 @@ span.annotated-comment.subtitle {
 span.strikethrough {
     outline: 1px solid red;
     outline-offset: -11px;
-    font-family: Arial,Times,sans-serif;
+    font-family: Times,sans-serif;
+    border: none;
 
      > span {
          font-family: Raleway,Arial,Times,sans-serif;
