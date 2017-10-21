@@ -1,9 +1,11 @@
 <?php
 require_once '../../vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+require_once 'credentials.php';
+
 if(isset($_POST['c_name'])){
 	$transport = Swift_SmtpTransport::newInstance('ssl://smtp.gmail.com', 465)
-	                                ->setUsername('username@gmail.com') // Your Gmail Username
-	                                ->setPassword('my_secure_gmail_password'); // Your Gmail Password
+	                                ->setUsername($username) // Your Gmail Username
+	                                ->setPassword($password); // Your Gmail Password
 	$mailer = Swift_Mailer::newInstance($transport);
 	$message = Swift_Message::newInstance('New message from almirbijedic.rocks')
 	                        ->setFrom(array('almir.bij@gmail.com' => 'almirbijedic.rocks')) // can be $_POST['email'] etc...
