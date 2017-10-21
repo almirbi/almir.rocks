@@ -73,6 +73,7 @@ window.addEventListener('load', () => {
     http.send(params);
     
     loader.classList.add('active');
+    document.querySelector('#contact > .container').scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
     return false;
   });
 
@@ -95,7 +96,7 @@ let links = [...document.querySelectorAll("a[href^='#'")];
 links.forEach(link => {
   link.addEventListener("click", event => {
     event.preventDefault();
-    document.querySelector(link.getAttribute('href')).scrollIntoView({behavior: "smooth"});
+    document.querySelector(link.getAttribute('href')).scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
     return false;
   });
 });

@@ -146,6 +146,12 @@ span.annotated-comment.javascript {
 
 .explanation-wrapper {
   display: block;
+  z-index: 6;
+}
+#game {
+  #game-wrapper {
+    z-index: 10;
+  }
 }
 span.annotated-comment.game-explanation {
   transform-origin: 0 0;
@@ -696,6 +702,9 @@ textarea.form-control {
 .navbar-custom .dropdown-menu > li > a {
   padding: 10px 20px;
 }
+
+
+
 
 .navbar-custom .nav .open > a,
 .navbar-custom .dropdown-menu > li > a:hover,
