@@ -10,6 +10,13 @@ function getWindowDimensions() {
 
 function resizeHomeSection() {
   let {x, y} = getWindowDimensions();
+
+  if (window.abLastWindowWidth && x === window.abLastWindowWidth) {
+    window.abLastWindowWidth = x;
+    return;
+  }
+
+  window.abLastWindowWidth = x;
   window.home.style.height = y + "px";
 }
 resizeHomeSection();

@@ -57,6 +57,9 @@ gulp.task('critical-css', ['scripts', 'remove-index', 'sass'], (done) => {
         replace('/*GA_JS*/', function(match) {
             return fs.readFileSync(config.jsTemplateDir + 'template-ga.js', "utf8");
         }),
+        replace('/*SW_JS*/', function(match) {
+            return fs.readFileSync(config.jsTemplateDir + 'template-sw.js', "utf8");
+        }),
         replace('/*RESIZE_HOME_JS*/', function(match) {
             return fs.readFileSync(config.jsTemplateDir + 'template-resize-home.js', "utf8");
         }),
