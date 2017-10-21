@@ -47,7 +47,6 @@ self.addEventListener('install', function(e) {
                 '/assets/images/wordpress.svg',
                 '/dist/bundle.js',
                 '/assets/fonts/fontawesome-webfont.woff2?v=4.3.0',
-                //'https://www.google-analytics.com/analytics.js',
                 'https://fonts.googleapis.com/css?family=Raleway:300,800',
                 'https://fonts.googleapis.com/css?family=Rock+Salt:400',
                 'https://fonts.gstatic.com/s/raleway/v12/-_Ctzj9b56b8RgXW8FAriQzyDMXhdD8sAj6OAJTFsBI.woff2',
@@ -62,7 +61,6 @@ self.addEventListener('install', function(e) {
 
 
 self.addEventListener('fetch', function(event) {
-    console.log(event.request.url);
     event.respondWith(
         caches.match(event.request).then(function(response) {
             return response || fetch(event.request);
