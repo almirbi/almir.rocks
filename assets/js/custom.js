@@ -73,9 +73,6 @@ window.addEventListener('load', () => {
     http.send(params);
     
     loader.classList.add('active');
-    setTimeout(() => {
-      document.querySelector('#contact > .container').scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-    }, 200);
     document.getElementById('sendMessage').addEventListener('focus', () => {
       document.querySelector('#contact > .container').scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
     });
