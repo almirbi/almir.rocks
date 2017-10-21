@@ -46,6 +46,11 @@ window.addEventListener('load', () => {
 
   let contactForm = document.getElementById("contact-form");
   let loader = document.querySelector(".spinner");
+  document.getElementById('sendMessage').addEventListener('click', () => {
+    setTimeout(() => {
+      document.querySelector('#contact > .container').scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    }, 200);
+  });
   contactForm.addEventListener("submit", (event) => {
     
     event.preventDefault();
@@ -73,9 +78,7 @@ window.addEventListener('load', () => {
     http.send(params);
     
     loader.classList.add('active');
-    document.getElementById('sendMessage').addEventListener('focus', () => {
-      document.querySelector('#contact > .container').scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
-    });
+    
     return false;
   });
 
