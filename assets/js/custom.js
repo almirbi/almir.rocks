@@ -7,7 +7,9 @@ window.addEventListener('load', () => {
     
     let icons = document.querySelector("#game-wrapper .icons");
     let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "vagrant", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
-    // techs = ['angularjs'];
+    if (mobilecheck()) {
+      techs.splice(14);
+    }
   
     let divRow;
   
