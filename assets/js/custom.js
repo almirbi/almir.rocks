@@ -43,7 +43,9 @@ window.addEventListener('load', () => {
   }
 
   let contactForm = document.getElementById("contact-form");
+  let loader = document.querySelector(".spinner");
   contactForm.addEventListener("submit", (event) => {
+    
     event.preventDefault();
     var http = new XMLHttpRequest();
     var url = "/assets/php/handleFormSubmit.php";
@@ -60,11 +62,14 @@ window.addEventListener('load', () => {
     
     http.onreadystatechange = function() {//Call a function when the state changes.
         if(http.readyState == 4 && http.status == 200) {
-          let response = document.querySelector("ajax-response");
+          let response = document.querySelector(".ajax-response");
           respoonse.innerHTML = JSON.parse(http.responseText).message;
         }
+        loader.classList.remove('active');
     }
     http.send(params);
+    
+    loader.classList.add('active');
     return false;
   });
 
