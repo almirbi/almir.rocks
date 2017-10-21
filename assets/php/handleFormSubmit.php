@@ -10,7 +10,7 @@ if(isset($_POST['c_name'])){
 	$message = Swift_Message::newInstance('New message from almirbijedic.rocks')
 	                        ->setFrom(array('almir.bij@gmail.com' => 'almirbijedic.rocks')) // can be $_POST['email'] etc...
 	                        ->setTo(array('almir.bij@gmail.com' => 'Almir Bijedic')) // your email / multiple supported.
-	                        ->setBody($_POST['c_message']);
+	                        ->setBody($_POST['c_message'] . "\nName:" . $_POST['c_name'] . "\nEmail:" . $_POST['c_email']);
 
 	// Send the message
 	if ($mailer->send($message)) {
