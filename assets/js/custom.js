@@ -64,6 +64,7 @@ window.addEventListener('load', () => {
         if(http.readyState == 4 && http.status == 200) {
           let response = document.querySelector(".ajax-response");
           response.innerHTML = JSON.parse(http.responseText).message;
+          response.classList.add('active');
         }
         loader.classList.remove('active');
     }
