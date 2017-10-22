@@ -35,7 +35,24 @@ gulp.task('sass', function (cb) {
         cleanCSS(),
         gulp.dest(config.cssDest)
     ], cb);
-  });
+});
+
+gulp.task('generate-service-worker', function(callback) {
+    var swPrecache = require('sw-precache');
+    var rootDir = './';
+  
+    swPrecache.write(`${rootDir}/sw.js`, {
+      staticFileGlobs: [
+          './cache-polyfill.js',
+          './index.html',
+          './manifest.json',
+          'https://fonts.googleapis.com/css?family=Raleway:300,800',
+          'https://fonts.googleapis.com/css?family=Rock+Salt:400',
+          rootDir + '/assets/**/*.*',
+          rootDir + '/dist/**/*.*'
+        ]
+    }, callback);
+});
 
 gulp.task('css', function () {
 return gulp.src(config.cssPath)

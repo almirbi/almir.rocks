@@ -16,6 +16,7 @@
   <link rel="icon"
         type="image/png"
         href="assets/images/favicon.png">
+  <link rel="manifest" href="/manifest.json">
   <title>A Curious Human Being</title>
   <style>/*CRITICALCSS*/</style>
 </head>
@@ -361,6 +362,7 @@
                      for="c_name">Name</label>
               <input type="text"
                      id="c_name"
+                     required
                      class="form-control"
                      name="c_name"
                      placeholder="Name">
@@ -371,6 +373,7 @@
               <label class="sr-only"
                      for="c_email">Email</label>
               <input type="email"
+                     required
                      id="c_email"
                      class="form-control"
                      name="c_email"
@@ -383,6 +386,7 @@
                         id="c_message"
                         name="c_message"
                         rows="7"
+                        required
                         placeholder="Message"></textarea>
             </div>
 
@@ -431,11 +435,10 @@
 </div>
 
 
-<script async src="dist/bundle.js?v=1"></script>
-<script async src="/assets/bootstrap/js/bootstrap.min.js?v=1"></script>
+<script async src="dist/bundle.js"></script>
+<script async src="/assets/bootstrap/js/bootstrap.min.js"></script>
 <script>/*GA_JS*/</script>
 <script>/*LOAD_CSS_JS*/</script>
 <script>/*SW_JS*/</script>
-<link rel="manifest" href="/manifest.json?v=1">
 </body>
 </html>
