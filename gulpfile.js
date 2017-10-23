@@ -51,6 +51,7 @@ gulp.task('generate-service-worker', function(callback) {
           'https://fonts.googleapis.com/css?family=Raleway:300,800',
           'https://fonts.googleapis.com/css?family=Rock+Salt:400',
           rootDir + '/assets/**/*.*',
+          '!' + rootDir + '/assets/php/**/*.*',
           rootDir + '/dist/**/*.*'
         ]
     }, callback);
@@ -107,7 +108,7 @@ gulp.task('reload-browser', (done) => {
 
 
 // Static Server + watching scss/html files
-gulp.task('serve', ['build'], function() {
+gulp.task('serve', ['build', 'generate-service-worker'], function() {
 
     browserSync.init({
         server: {
