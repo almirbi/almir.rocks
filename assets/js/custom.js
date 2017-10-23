@@ -103,7 +103,7 @@ window.addEventListener("resize", () => {
   requestAnimationFrame(resizeHomeSection);
 });
 
-let links = [...document.querySelectorAll("a[href^='#'")];
+let links = [...document.querySelectorAll("a[href^='#']")];
 links.forEach(link => {
   link.addEventListener("click", event => {
     event.preventDefault();

@@ -2,7 +2,7 @@ const gulp        = require('gulp'),
     concat        = require('gulp-concat'),
     browserSync = require('browser-sync').create(),
     sass        = require('gulp-sass'),
-    uglify = require('gulp-uglify-es').default,
+    uglify = require('gulp-uglify'),
     pump = require('pump'),
     replace = require('gulp-replace'),
     rename = require("gulp-rename"),
@@ -26,12 +26,14 @@ const config = {
     jsTemplateDir: './build/js/'
 }
 
-
 gulp.task('sass', function (cb) {  
     pump([
         gulp.src(config.scssPath),
         sass(),
-        autoprefixer('last 2 version'),
+        autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }),
         cleanCSS(),
         gulp.dest(config.cssDest)
     ], cb);
@@ -143,11 +145,11 @@ gulp.task('scripts', (done) => {
 gulp.task('transpile-js', (cb) => {
     pump([
         gulp.src(config.jsFiles),
-        sourcemaps.init(),
+        // sourcemaps.init(),
         babel({
             presets: ['env']
         }),
-        sourcemaps.write(),
+        // sourcemaps.write(),
         gulp.dest('./build/js/')
     ], cb);
 });
@@ -155,10 +157,10 @@ gulp.task('transpile-js', (cb) => {
 
 gulp.task('uglify-js', (cb) => {
     pump([
-        gulp.src(config.jsFiles),
-        sourcemaps.init({loadMaps: true}),
+        gulp.src('./build/js/**/*.js'),
+        // sourcemaps.init({loadMaps: true}),
         uglify(),
-        sourcemaps.write(),
+        // sourcemaps.write(),
         gulp.dest('./build/js/')
     ], cb);
 });
@@ -166,9 +168,9 @@ gulp.task('uglify-js', (cb) => {
 gulp.task('bundle-js', (cb) => {
     pump([
         gulp.src(['./build/js/custom.js', './build/js/game.js']),
-        sourcemaps.init({loadMaps: true}),
+        // sourcemaps.init({loadMaps: true}),
         concat('bundle.js'),
-        sourcemaps.write(),
+        // sourcemaps.write(),
         gulp.dest('./dist')
     ], cb);
 })
