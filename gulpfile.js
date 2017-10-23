@@ -48,14 +48,18 @@ gulp.task('generate-service-worker', function(callback) {
           './cache-polyfill.js',
           './index.html',
           './manifest.json',
-          'https://fonts.googleapis.com/css?family=Raleway:300,800',
-          'https://fonts.googleapis.com/css?family=Rock+Salt:400',
+          '//fonts.googleapis.com/css?family=Raleway:300,800',
+          '//fonts.googleapis.com/css?family=Rock+Salt:400',
           rootDir + '/assets/bootstrap/**/*.*',
           rootDir + '/assets/css/**/*.*',
           rootDir + '/assets/fonts/**/*.*',
           rootDir + '/assets/images/**/*.*',
           rootDir + '/dist/**/*.*'
-        ]
+        ],
+        runtimeCaching: [{
+            urlPattern: /^https:\/\/fonts\.(googleapis|gstatic)\.com\//,
+            handler: 'cacheFirst'
+        }]
     }, callback);
 });
 
