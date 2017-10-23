@@ -50,8 +50,10 @@ gulp.task('generate-service-worker', function(callback) {
           './manifest.json',
           'https://fonts.googleapis.com/css?family=Raleway:300,800',
           'https://fonts.googleapis.com/css?family=Rock+Salt:400',
-          rootDir + '/assets/**/*.*',
-          '!' + rootDir + '/assets/php/**/*.*',
+          rootDir + '/assets/bootstrap/**/*.*',
+          rootDir + '/assets/css/**/*.*',
+          rootDir + '/assets/fonts/**/*.*',
+          rootDir + '/assets/images/**/*.*',
           rootDir + '/dist/**/*.*'
         ]
     }, callback);
