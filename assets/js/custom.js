@@ -1,145 +1,113 @@
-(function($){
-
-	/* ---------------------------------------------- /*
-	 * Preloader
-	/* ---------------------------------------------- */
-
-	$(window).load(function() {
-		$('#status').fadeOut();
-		$('#preloader').delay(300).fadeOut('slow');
-	});
-
-	$(document).ready(function() {
-
-		/* ---------------------------------------------- /*
-		 * Smooth scroll / Scroll To Top
-		/* ---------------------------------------------- */
-
-		$('a[href*=#]').bind("click", function(e){
-           
-			var anchor = $(this);
-			$('html, body').stop().animate({
-				scrollTop: $(anchor.attr('href')).offset().top
-			}, 1000);
-			e.preventDefault();
-		});
-
-		$(window).scroll(function() {
-			if ($(this).scrollTop() > 100) {
-				$('.scroll-up').fadeIn();
-			} else {
-				$('.scroll-up').fadeOut();
-			}
-		});
-
-        /* ---------------------------------------------- /*
-         * Smooth scroll / Scroll To Top
-         /* ---------------------------------------------- */
-        $('a').click(function() {
-            ga('send', 'event', 'portfolio', 'click', $(this).attr('href'));
-        });
-
-		/* ---------------------------------------------- /*
-		 * Navbar
-		/* ---------------------------------------------- */
-
-		$('.header').sticky({
-			topSpacing: 0
-		});
-
-		$('body').scrollspy({
-			target: '.navbar-custom',
-			offset: 70
-		})
-
-       
-        
-        /* ---------------------------------------------- /*
-		 * Quote Rotator
-		/* ---------------------------------------------- */
-       
-			$( function() {
-				$( '#cbp-qtrotator' ).cbpQTRotator();
-			} );
-		
-        
-		/* ---------------------------------------------- /*
-		 * Home BG
-		/* ---------------------------------------------- */
-
-		$(".screen-height").height($(window).height());
-
-		$(window).resize(function(){
-			$(".screen-height").height($(window).height());
-		});
-
-		if (/Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent)) {
-			$('#home').css({'background-attachment': 'scroll'});
-		} else {
-			$('#home').parallax('50%', 0.1);
-		}
 
 
-		/* ---------------------------------------------- /*
-		 * WOW Animation When You Scroll
-		/* ---------------------------------------------- */
+window.addEventListener('load', () => {
 
-		wow = new WOW({
-			mobile: false
-		});
-		wow.init();
+  if (mobilecheck()) {
+    let strikethrough = document.querySelector("span.strikethrough");
+    strikethrough.style.setProperty("outline-offset", "-12px");
+  }
+  
 
+  function startGame() {
+    window.removeEventListener('scroll', startGame);
+    
+    let icons = document.querySelector("#game-wrapper .icons");
+    let techs = ["angularjs", "apache", "bootstrap", "bower", "c", "cplusplus", "csharp", "css3", "vagrant", "debian", "docker", "dot-net", "html5", "jasmine", "javascript", "jquery", "mongodb", "mysql", "nginx", "php-flat", "react", "typescript", "ubuntu", "wordpress"];
+    if (mobilecheck()) {
+      techs.splice(14);
+    }
+  
+    let divRow;
+  
+    techs.forEach((tech, index) => {
+  
+      if (index % parseInt(techs.length/3) === 0 || index === 0) {
+        divRow = document.createElement("br");
+        icons.appendChild(divRow);
+      }
+  
+      let image = document.createElement("img");
+      let iconWrap = document.createElement("div");
+      iconWrap.className = "icon alive";
+      image.alt = tech;
+      image.title = tech;
+      image.src = "assets/images/" + tech + ".svg";
+      iconWrap.dataset.name = tech;
+  
+      iconWrap.appendChild(image);
+      icons.appendChild(iconWrap);
+    });
+  
+    let awesomeGame = new Game();
+  }
 
-		/* ---------------------------------------------- /*
-		 * E-mail validation
-		/* ---------------------------------------------- */
+  let objectToQueryString = function(obj) {
+    var str = [];
+    for(var p in obj)
+      if (obj.hasOwnProperty(p)) {
+        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+      }
+    return str.join("&");
+  }
 
-		function isValidEmailAddress(emailAddress) {
-			var pattern = new RegExp(/^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i);
-			return pattern.test(emailAddress);
-		};
+  let contactForm = document.getElementById("contact-form");
+  let loader = document.querySelector(".spinner");
+  document.getElementById('sendMessage').addEventListener('click', () => {
+    setTimeout(() => {
+      document.querySelector('#contact > .container').scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    }, 200);
+  });
+  contactForm.addEventListener("submit", (event) => {
+    
+    event.preventDefault();
+    var http = new XMLHttpRequest();
+    var url = "/assets/php/handleFormSubmit.php";
+    let post = {
+      c_name : event.target.c_name.value,
+      c_message: event.target.c_message.value,
+      c_email: event.target.c_email.value
+    };
+    var params = objectToQueryString(post);
+    http.open("POST", url, true);
+    
+    //Send the proper header information along with the request
+    http.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    
+    http.onreadystatechange = function() {//Call a function when the state changes.
+        if(http.readyState == 4 && http.status == 200) {
+          let response = document.querySelector(".ajax-response");
+          response.innerHTML = JSON.parse(http.responseText).message;
+          response.classList.add('active');
+        }
+        loader.classList.remove('active');
+    }
+    http.send(params);
+    
+    loader.classList.add('active');
+    
+    return false;
+  });
 
-		/* ---------------------------------------------- /*
-		 * Contact form ajax
-		/* ---------------------------------------------- */
+  window.addEventListener('scroll', startGame);
 
-		$('#contact-form').submit(function(e) {
+  let images = [...document.querySelectorAll('img')];
+  images.forEach((image) => {
+    if (image.dataset.src) {
+      image.src = image.dataset.src;
+    }
+  });
+	
+}, false);
 
-			e.preventDefault();
+window.addEventListener("resize", () => {
+  requestAnimationFrame(resizeHomeSection);
+});
 
-			var c_name = $('#c_name').val();
-			var c_email = $('#c_email').val();
-			var c_message = $('#c_message ').val();
-			var response = $('#contact-form .ajax-response');
-
-			if (( c_name== '' || c_email == '' || c_message == '') || (!isValidEmailAddress(c_email) )) {
-				response.fadeIn(500);
-				response.html('<i class="fa fa-warning"></i> Please fix the errors and try again.');
-			}
-
-			else {				
-
-                    var url = "assets/php/handleFormSubmit.php";
-                    $.ajax({
-                        type: "POST",
-                        url: url,
-                        dataType: 'json',
-                        data: $("#contact-form").serialize(),
-
-                        success: function(data)
-                        {
-                            $('#contact-form .ajax-hidden').fadeOut(500);
-                            response.html(data.message).fadeIn(500);
-                        }
-                    });
-
-                    return false;
-
-				}
-            
-            	return false;
-			});
-
-	});
-
-})(jQuery);
+let links = [...document.querySelectorAll("a[href^='#']")];
+links.forEach(link => {
+  link.addEventListener("click", event => {
+    event.preventDefault();
+    document.querySelector(link.getAttribute('href')).scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+    return false;
+  });
+});
