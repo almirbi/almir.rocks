@@ -71,9 +71,9 @@ span.annotated-comment.subtitle {
     color: #fff
 }
 #home {
-    background: url('/assets/images/cover-320.jpg') 50% 50% no-repeat fixed #222;
+    background-image: url('/assets/images/cover-320.jpg');
+    overflow: hidden;
     background-size: cover;
-    overflow: hidden
 }
 @include respond-to(xx-small) {
     #home {
@@ -83,6 +83,12 @@ span.annotated-comment.subtitle {
 @include respond-to(small) {
     #home {
         background-image: url('/assets/images/cover.jpg');
+    }
+}
+@include respond-to(medium) {
+    #home {
+        background: url('/assets/images/cover.jpg') 50% 50% no-repeat fixed #222;
+        background-size: cover;
     }
 }
 .home-overlay {
@@ -113,8 +119,8 @@ span.annotated-comment.subtitle {
     margin: 15px 0
 }
 span.strikethrough {
-    outline: 1px solid red;
-    outline-offset: -11px;
+    text-decoration: line-through;
+    text-decoration-color: #F44336;
     font-family: Times,sans-serif;
     border: none;
 
@@ -127,13 +133,17 @@ img {
     max-width: 100px;
 }
 
+span.annotated-comment.subtitle {
+    transform: translate(26px);
+}
+
 @include respond-to(xx-small) {
 	.intro {
 		top: 30%;
 	}
 
     span.annotated-comment.subtitle {
-        transform: translate(100px);
+        transform: translate(26px);
     }
 }
 
