@@ -693,6 +693,26 @@ textarea.form-control {
   font-size: 22px;
 }
 
+.navbar-brand {
+  
+  display: none;
+
+  &.mobile {
+    display: block;
+  }
+}
+
+@include respond-to(medium) {
+  .navbar-brand {
+
+    display: block;
+
+    &.mobile {
+      display: none;
+    }
+  }
+}
+
 .navbar-custom .dropdown-menu {
   border: 0;
   border-top: 2px solid #E7746F;

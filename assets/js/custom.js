@@ -1,12 +1,7 @@
 
 
 window.addEventListener('load', () => {
-
-  if (mobilecheck()) {
-    let strikethrough = document.querySelector("span.strikethrough");
-    strikethrough.style.setProperty("outline-offset", "-12px");
-  }
-  
+ 
 
   function startGame() {
     window.removeEventListener('scroll', startGame);
