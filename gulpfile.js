@@ -23,7 +23,7 @@ const config = {
     cssDest: './assets/css/',
     cssPath: './assets/css/**/*.css',
     criticalCssPath: './assets/css/critical.css',
-    jsTemplateDir: './build/js/'
+    jsTemplateDir: './public/build/js/'
 }
 
 gulp.task('sass', function (cb) {  
@@ -41,7 +41,7 @@ gulp.task('sass', function (cb) {
 
 gulp.task('generate-service-worker', function(callback) {
     var swPrecache = require('sw-precache');
-    var rootDir = './';
+    var rootDir = './public/';
   
     swPrecache.write(`${rootDir}/sw.js`, {
       staticFileGlobs: [
@@ -94,7 +94,7 @@ gulp.task('critical-css', ['scripts', 'remove-index', 'sass'], (done) => {
         }),
         rename('index.html'),
         htmlmin({collapseWhitespace: true, minifyJS: true}),
-        gulp.dest('./'),
+        gulp.dest('./public/'),
     ], done);
 });
 
@@ -118,8 +118,8 @@ gulp.task('serve', ['build', 'generate-service-worker'], function() {
 
     browserSync.init({
         server: {
-            baseDirr: "./",
-            index: "index-dev.html"
+            baseDir: "./public/",
+            index: "index.html"
         },
         port: 3001
     });
@@ -157,28 +157,28 @@ gulp.task('transpile-js', (cb) => {
             presets: ['env']
         }),
         // sourcemaps.write(),
-        gulp.dest('./build/js/')
+        gulp.dest('./public/build/js/')
     ], cb);
 });
 
 
 gulp.task('uglify-js', (cb) => {
     pump([
-        gulp.src('./build/js/**/*.js'),
+        gulp.src('./public/build/js/**/*.js'),
         // sourcemaps.init({loadMaps: true}),
         uglify(),
         // sourcemaps.write(),
-        gulp.dest('./build/js/')
+        gulp.dest('./public/build/js/')
     ], cb);
 });
 
 gulp.task('bundle-js', (cb) => {
     pump([
-        gulp.src(['./build/js/custom.js', './build/js/game.js']),
+        gulp.src(['./public/build/js/custom.js', './public/build/js/game.js']),
         // sourcemaps.init({loadMaps: true}),
         concat('bundle.js'),
         // sourcemaps.write(),
-        gulp.dest('./dist')
+        gulp.dest('./public/dist')
     ], cb);
 })
 
