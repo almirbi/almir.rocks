@@ -27,7 +27,7 @@
 <section id="home" class="pfblock-image screen-height">
   <div class="home-overlay"></div>
   <div class="intro">
-    <div class="start">Hi, I'm Almir and I'm a</div>
+    <div class="start">Hi, I'm <span class="name">Almir</span> and I'm a</div>
     <h1>Full<span class="annotated-comment ish">ish</span> Stack Web Engineer</h1>
     <div class="start">and when I am not that, I am a
       <span class="strikethrough"><span>healthy life activist.</span></span><span class="annotated-comment subtitle"><span>* mountain-biker</span><span>* lurking the Twitter World of JavaScript</span><span>* fan of 90's cinema</span></span>
@@ -91,10 +91,12 @@
 <section id="services"
          class="pfblock pfblock-white">
   <div class="container">
+    <div class="profile-pic"><img data-src="assets/images/almir2019.jpg" /></div>
     <div class="row">
+      
       <div class="col-sm-6 col-sm-offset-3">
         <div class="pfblock-header wow fadeInUp">
-          <h2 class="pfblock-title">This is what I do</h2>
+          <h2 class="pfblock-title">This is what I do 🔧</h2>
           <div class="pfblock-line"></div>
           <div class="pfblock-subtitle">
             I have a passion to build software that makes otherwise impossible stuff possible, software to make everyday 
@@ -143,8 +145,9 @@
           </div>
           <div class="iconbox-text">
             <h3 class="iconbox-title">Server</h3>
+            <span class="annotated-comment server">...less</span>
             <div class="iconbox-desc">
-              Experienced setting up and scaling LAMP/LEMP/.NET web server environments for production
+              Experienced setting up and scaling LAMP/LEMP/.NET web server environments for production.
             </div>
           </div>
         </div>
@@ -280,8 +283,7 @@
               </div>
             </div>
           </li>
-          <li data-wow-delay="100ms"
-              class="wow bounceInUp center animated timeline-inverted">
+          <li class="center timeline-inverted">
             <div class="timeline-image">
               <img class="img-circle img-responsive"
                    data-src="assets/images/tug.gif"
@@ -306,20 +308,29 @@
             <div class="timeline-panel">
               <div class="timeline-heading">
                 <h4>June 2015</h4>
-                <h4 class="subheading">Front-end developer at Ranorex</h4>
+                <h4 class="subheading">Web developer at Ranorex</h4>
               </div>
               <div class="timeline-body">
                 <p class="text-muted"><a href ="https://ranorex.io">Ranorex Online</a> (AngularJS, WordPress, .NET, MongoDB)</p> 
               </div>
             </div>
           </li>
-          <li class="timeline-inverted">
-            <div class="timeline-image">
-              <h4>Be Part
-                <br>Of This
-                <br>Story!</h4>
-            </div>
-          </li>
+          <li class="toggl timeline-inverted">
+              <div class="timeline-image">
+                  <img class="img-circle img-responsive"
+                        data-src="assets/images/toggl.png"
+                        alt="">
+                </div>
+              <div class="timeline-panel">
+                <div class="timeline-heading">
+                  <h4>February 2018</h4>
+                  <h4 class="subheading">Front-end developer at <a href ="https://toggl.com">Toggl</a></h4>
+                </div>
+                <div class="timeline-body">
+                  <p class="text-muted"><a href ="https://toggl.com">Toggl</a> (React)</p> 
+                </div>
+              </div>
+            </li>
         </ul>
       </div>
     </div>
@@ -338,74 +349,14 @@
       <div class="col-sm-6 col-sm-offset-3">
 
         <div class="pfblock-header">
-          <h2 class="pfblock-title">Feel free to contact me</h2>
-          <div class="pfblock-line"></div>
+          <h1 class="pfblock-title">almir.bij [📬] gmail</h1>
         </div>
 
       </div>
 
     </div><!-- .row -->
 
-    <div class="row">
-
-      <div class="col-sm-6 col-sm-offset-3">
-
-        <form id="contact-form"
-              role="form">
-              <div class="spinner">
-                <div class="rect1"></div>
-                <div class="rect2"></div>
-                <div class="rect3"></div>
-                <div class="rect4"></div>
-                <div class="rect5"></div>
-              </div>
-          <div class="ajax-hidden">
-            <div class="form-group">
-              <label class="sr-only"
-                     for="c_name">Name</label>
-              <input type="text"
-                     id="c_name"
-                     required
-                     class="form-control"
-                     name="c_name"
-                     placeholder="Name">
-            </div>
-
-            <div class="form-group"
-                 data-wow-delay=".1s">
-              <label class="sr-only"
-                     for="c_email">Email</label>
-              <input type="email"
-                     required
-                     id="c_email"
-                     class="form-control"
-                     name="c_email"
-                     placeholder="E-mail">
-            </div>
-
-            <div class="form-group wow fadeInUp"
-                 data-wow-delay=".2s">
-              <textarea class="form-control"
-                        id="c_message"
-                        name="c_message"
-                        rows="7"
-                        required
-                        placeholder="Message"></textarea>
-            </div>
-
-            <button type="submit"
-                    id="sendMessage"
-                    class="btn btn-lg btn-block wow fadeInUp"
-                    data-wow-delay=".3s">Send Message
-            </button>
-          </div>
-          <div class="ajax-response"></div>
-          
-        </form>
-
-      </div>
-
-    </div><!-- .row -->
+  
   </div><!-- .container -->
 </section>
 
@@ -420,9 +371,7 @@
       <div class="col-sm-12">
 
         <ul class="social-links">
-          <li><a target="_blank" href="https://www.facebook.com/almir.b"><i class="fa fa-facebook"></i></a></li>
           <li><a target="_blank" href="https://twitter.com/AlmirBijedic"><i class="fa fa-twitter"></i></a></li>
-          <li><a target="_blank" href="https://plus.google.com/102726531253268417201/posts"><i class="fa fa-google-plus"></i></a></li>
           <li><a target="_blank" href="https://github.com/almirbi"><i class="fa fa-github"></i></a></li>
           <li><a target="_blank" href="https://at.linkedin.com/pub/almir-bijedic/59/781/138"><i class="fa fa-linkedin"></i></a></li>
         </ul>
