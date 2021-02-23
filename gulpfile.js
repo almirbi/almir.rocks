@@ -50,16 +50,16 @@ gulp.task("generate-service-worker", function (callback) {
     `${rootDir}/sw.js`,
     {
       staticFileGlobs: [
-        "./src/cache-polyfill.js",
+        "./dist/static/cache-polyfill.js",
         "./dist/index.html",
-        "./src/manifest.json",
+        "./dist/static/manifest.json",
         "//fonts.googleapis.com/css?family=Raleway:300,800",
         "//fonts.googleapis.com/css?family=Rock+Salt:400",
-        rootDir + "/assets/bootstrap/**/*.*",
+        rootDir + "/static/bootstrap/**/*.*",
         rootDir + "/assets/css/**/*.*",
-        rootDir + "/assets/fonts/**/*.*",
-        rootDir + "/assets/images/**/*.*",
-        rootDir + "/dist/**/*.*",
+        rootDir + "/static/fonts/**/*.*",
+        rootDir + "/static/images/**/*.*",
+        rootDir + "/**/*.*",
       ],
       runtimeCaching: [
         {
@@ -117,7 +117,11 @@ gulp.task("critical-css", ["scripts", "remove-index", "sass"], (done) => {
 });
 
 gulp.task("build", (done) => {
-  runSequence("critical-css", "reload-browser", done);
+  runSequence("critical-css", "reload-browser", "copy-static", done);
+});
+
+gulp.task("copy-static", () => {
+  gulp.src(["static/**/*"]).pipe(gulp.dest("dist/static"));
 });
 
 gulp.task("reload-browser", (done) => {
@@ -137,7 +141,6 @@ gulp.task("serve", ["build", "generate-service-worker"], function () {
 
   // CSS
   gulp.watch(config.cssPath, ["css"]);
-  // gulp.watch(config.scssPath, ['sass']);
 
   // HTML
   gulp.watch("./src/index-template.html", ["build"]);

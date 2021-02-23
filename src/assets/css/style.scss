@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css?family=Raleway:300,800');
-@import url('https://fonts.googleapis.com/css?family=Rock+Salt:400');
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,800");
+@import url("https://fonts.googleapis.com/css?family=Rock+Salt:400");
 /*!
  * My Portfolio v1.0.0
  * Homepage: https://scripteden.com
@@ -8,20 +8,20 @@
 */
 @import "mixins";
 
-$primary-color-dark: #D32F2F;
-$primary-color: #F44336;
-$primary-color-light: #FFCDD2;
-$primary-color-text: #FFFFFF;
-$accent-color: #607D8B;
+$primary-color-dark: #d32f2f;
+$primary-color: #f44336;
+$primary-color-light: #ffcdd2;
+$primary-color-text: #ffffff;
+$accent-color: #607d8b;
 $primary-text-color: #212121;
 $secondary-text-color: #757575;
-$divider-color: #BDBDBD;
-$icy-ice-blue: #D4F0FF;
-$amber: #FFC107;
+$divider-color: #bdbdbd;
+$icy-ice-blue: #d4f0ff;
+$amber: #ffc107;
 $font-weight-bold: 800;
 
 body {
-  font: 300 14px/1.8 'Raleway', sans-serif;
+  font: 300 14px/1.8 "Raleway", sans-serif;
   color: $primary-text-color;
   overflow-x: hidden;
 }
@@ -31,22 +31,12 @@ img {
   height: auto;
 }
 
-a {
-  color: $secondary-text-color;
-}
-
 a:hover {
   text-decoration: none;
   color: $accent-color;
 }
 
 span.annotated-comment {
-  font-family: 'Rock Salt', cursive;
-  color: $primary-color;
-  font-size: 16px;
-  position: absolute;
-  z-index: 100;
-
   > span {
     display: block;
     padding: 10px 0;
@@ -73,7 +63,7 @@ span.annotated-comment.subtitle {
 }
 
 span.annotated-comment.server {
-  transform: rotate(40deg) translate(30px,-80px);
+  transform: rotate(40deg) translate(30px, -80px);
   transform-origin: 0 0;
   font-size: 28px;
 }
@@ -118,7 +108,7 @@ div.profile-pic {
 /* ---------------------------------------------- */
 
 #home {
-  background-image: url('/assets/images/cover.jpg')
+  background-image: url("/static/images/cover.jpg");
 }
 
 div.icons {
@@ -152,7 +142,7 @@ div.icons {
 @include respond-to(large) {
   div.icons {
     text-align: center;
-  
+
     div.icon {
       margin: 20px;
     }
@@ -216,7 +206,8 @@ span.annotated-comment.stockholm {
 #game-wrapper {
   position: relative;
   display: block;
-  transition: border-top-color 0.8s ease, border-right-color 0.8s ease, border-left-color 0.8s ease;
+  transition: border-top-color 0.8s ease, border-right-color 0.8s ease,
+    border-left-color 0.8s ease;
   border: 1px solid transparent;
 
   div.pad-wrapper {
@@ -227,7 +218,7 @@ span.annotated-comment.stockholm {
     @include respond-to(small) {
       margin-top: 230px;
     }
-  
+
     #pad {
       position: absolute;
       width: 100px;
@@ -243,17 +234,14 @@ span.annotated-comment.stockholm {
         margin-top: 3px;
         display: none;
       }
-      
     }
   }
-
-
 
   &.lost {
     div.pad-wrapper {
       #pad {
         i {
-          display: block;  
+          display: block;
         }
       }
     }
@@ -271,14 +259,13 @@ span.annotated-comment.stockholm {
         background-color: $icy-ice-blue;
         border: 1px solid $primary-text-color;
       }
-  }
+    }
 
     #ball {
       background-color: $icy-ice-blue;
       i {
         display: inline-block;
         opacity: 1;
-        
       }
     }
   }
@@ -294,7 +281,7 @@ span.annotated-comment.stockholm {
     bottom: 20px;
 
     &.victory {
-      animation: createBox .25s forwards;
+      animation: createBox 0.25s forwards;
     }
 
     i {
@@ -306,8 +293,6 @@ span.annotated-comment.stockholm {
     }
   }
 }
-
-
 
 /* ---------------------------------------------- /*
  * Transition elsements
@@ -339,7 +324,12 @@ a,
  * Typography
 /* ---------------------------------------------- */
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font: 800 60px/1.2 Raleway, sans-serif;
   text-transform: uppercase;
   letter-spacing: 5px;
@@ -401,8 +391,8 @@ h6 {
 }
 
 .input-group-addon {
-  background: #D8E1E4;
-  border: 2px solid #D8E1E4;
+  background: #d8e1e4;
+  border: 2px solid #d8e1e4;
   padding: 6px 15px;
   font-weight: $font-weight-bold;
 }
@@ -412,8 +402,8 @@ h6 {
 /* ---------------------------------------------- */
 
 .form-control {
-  background: #FFF;
-  border: 1px solid #D8E1E4;
+  background: #fff;
+  border: 1px solid #d8e1e4;
   font-size: 12px;
   padding: 0 15px;
 }
@@ -617,7 +607,7 @@ textarea.form-control {
   background: #222;
   text-align: center;
   padding: 40px 0;
-  color: #FFF;
+  color: #fff;
 }
 
 .copyright {
@@ -655,17 +645,17 @@ textarea.form-control {
   display: block;
   line-height: 35px;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
   font-size: 14px;
-  color: rgba(255, 255, 255, .2);
+  color: rgba(255, 255, 255, 0.2);
 }
 
 .social-links a:hover {
-  border: 1px solid rgba(255, 255, 255, .5);
-  color: rgba(255, 255, 255, .8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* ---------------------------------------------- /*
@@ -715,7 +705,6 @@ textarea.form-control {
 }
 
 .navbar-brand {
-  
   display: none;
 
   &.mobile {
@@ -725,7 +714,6 @@ textarea.form-control {
 
 @include respond-to(medium) {
   .navbar-brand {
-
     display: block;
 
     &.mobile {
@@ -736,16 +724,13 @@ textarea.form-control {
 
 .navbar-custom .dropdown-menu {
   border: 0;
-  border-top: 2px solid #E7746F;
+  border-top: 2px solid #e7746f;
   border-radius: 0;
 }
 
 .navbar-custom .dropdown-menu > li > a {
   padding: 10px 20px;
 }
-
-
-
 
 .navbar-custom .nav .open > a,
 .navbar-custom .dropdown-menu > li > a:hover,
@@ -786,7 +771,7 @@ header .navbar-toggle {
 
 .scroll-up a:hover,
 .scroll-up a:active {
-  background-color: rgba(235, 235, 235, .8);
+  background-color: rgba(235, 235, 235, 0.8);
   color: #e7746f;
 }
 
@@ -855,7 +840,6 @@ header .navbar-toggle {
   }
 }
 
-
 /* ---------------------------------------------- /*
  * Media
 /* ---------------------------------------------- */
@@ -870,7 +854,7 @@ header .navbar-toggle {
 @media (max-width: 991px) {
   span.annotated-comment.game-explanation {
     width: 100%;
-    text-align: center
+    text-align: center;
   }
 
   span.annotated-comment.game-explanation img {
@@ -905,11 +889,9 @@ header .navbar-toggle {
       }
     }
   }
-
 }
 
 @media (max-width: 480px) {
-
   h1 {
     font-size: 34px;
     letter-spacing: 3px;
@@ -920,9 +902,7 @@ header .navbar-toggle {
     margin: 0 0 30px;
     letter-spacing: 3px;
   }
-
 }
-
 
 .text-center {
   text-align: center;
@@ -995,20 +975,18 @@ header .navbar-toggle {
   text-align: center;
   color: #fff;
   background-color: #f5f5f5;
-
-  
 }
 
 .timeline > li.ranorex {
   .timeline-image {
     padding: 20px;
     background-color: #2d2d2d;
-  
+
     img {
       border-radius: 0;
     }
   }
-  
+
   .text-muted a {
     text-decoration: underline;
   }
@@ -1067,7 +1045,7 @@ header .navbar-toggle {
   }
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .timeline:before {
     left: 50%;
   }
@@ -1104,7 +1082,7 @@ header .navbar-toggle {
   }
 }
 
-@media(min-width: 768px) {
+@media (min-width: 768px) {
   .center-icon {
     display: table-cell;
     vertical-align: middle;
@@ -1113,7 +1091,7 @@ header .navbar-toggle {
 }
 
 li.timeline-inverted:last-child .timeline-image {
-  border-color: #E87A75;
+  border-color: #e87a75;
   background-color: #444;
 }
 
@@ -1140,12 +1118,12 @@ ul.articles {
       img {
         width: 30px;
       }
-  
+
       span {
         color: $primary-color;
       }
     }
-  } 
+  }
 }
 
 .spinner {
@@ -1181,8 +1159,8 @@ ul.articles {
 }
 
 .spinner .rect3 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
 }
 
 .spinner .rect4 {
@@ -1196,16 +1174,25 @@ ul.articles {
 }
 
 @-webkit-keyframes sk-stretchdelay {
-  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
-  20% { -webkit-transform: scaleY(1.0) }
+  0%,
+  40%,
+  100% {
+    -webkit-transform: scaleY(0.4);
+  }
+  20% {
+    -webkit-transform: scaleY(1);
+  }
 }
 
 @keyframes sk-stretchdelay {
-  0%, 40%, 100% { 
+  0%,
+  40%,
+  100% {
     transform: scaleY(0.4);
     -webkit-transform: scaleY(0.4);
-  }  20% { 
-    transform: scaleY(1.0);
-    -webkit-transform: scaleY(1.0);
+  }
+  20% {
+    transform: scaleY(1);
+    -webkit-transform: scaleY(1);
   }
 }
