@@ -9,5 +9,4 @@ function deferLoadCss(name) {
 setTimeout(() => {
   deferLoadCss("/static/bootstrap/bootstrap.min.css");
   deferLoadCss("/static/font-awesome.min.css");
-  deferLoadCss("/assets/css/style.css");
 }, 500);

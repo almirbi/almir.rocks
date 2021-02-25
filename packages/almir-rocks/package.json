@@ -5,8 +5,7 @@
   "main": "index.js",
   "private": true,
   "scripts": {
-    "build": "gulp build",
-    "serve": "gulp serve",
+    "build": "webpack",
     "deploy": "firebase deploy"
   },
   "repository": {
@@ -20,6 +19,10 @@
   },
   "homepage": "https://github.com/almirbi/almirbijedic.rocks#readme",
   "dependencies": {
+    "css-loader": "^5.1.0",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "url-loader": "^4.1.1",
     "webpack": "^5.24.0",
     "webpack-cli": "^4.5.0"
   },

@@ -7,6 +7,7 @@
  * Licensed under MIT
 */
 @import "mixins";
+@import "critical";
 
 $primary-color-dark: #d32f2f;
 $primary-color: #f44336;
@@ -108,7 +109,7 @@ div.profile-pic {
 /* ---------------------------------------------- */
 
 #home {
-  background-image: url("/static/images/cover.jpg");
+  background-image: url("../../../static/images/cover.jpg");
 }
 
 div.icons {

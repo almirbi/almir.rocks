@@ -1,3 +1,6 @@
+import Game from "./game";
+import resizeHomeSection from "./resize-home";
+
 window.addEventListener(
   "load",
   () => {
@@ -55,7 +58,7 @@ window.addEventListener(
         icons.appendChild(iconWrap);
       });
 
-      let awesomeGame = new Game();
+      new Game();
     }
 
     let objectToQueryString = function (obj) {
@@ -87,13 +90,11 @@ let links = [...document.querySelectorAll("a[href^='#']")];
 links.forEach((link) => {
   link.addEventListener("click", (event) => {
     event.preventDefault();
-    document
-      .querySelector(link.getAttribute("href"))
-      .scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "nearest",
-      });
+    document.querySelector(link.getAttribute("href")).scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
     return false;
   });
 });
