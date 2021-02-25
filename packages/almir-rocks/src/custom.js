@@ -82,6 +82,7 @@ window.addEventListener(
   false
 );
 
+resizeHomeSection();
 window.addEventListener("resize", () => {
   requestAnimationFrame(resizeHomeSection);
 });
