@@ -52,7 +52,7 @@ window.addEventListener(
         image.alt = tech;
         image.title = tech;
 
-        image.src = require(`../static/images/${tech}.svg`).default;
+        image.src = require(`./assets/images/${tech}.svg`).default;
         iconWrap.dataset.name = tech;
 
         iconWrap.appendChild(image);

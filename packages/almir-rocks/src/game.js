@@ -446,7 +446,7 @@ class Game {
 
     this.ball.style.setProperty(
       "background-image",
-      `url('${require("../static/images/victory.jpg").default}')`
+      `url('${require("./assets/images/victory.jpg").default}')`
     );
     this.ball.style.setProperty("background-size", "contain");
     this.ball.classList.add("victory");
