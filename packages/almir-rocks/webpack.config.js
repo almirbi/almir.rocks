@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   mode: "development",
@@ -31,6 +32,9 @@ module.exports = {
       inject: true,
       chunks: ["index"],
       filename: "index.html",
+    }),
+    new CopyPlugin({
+      patterns: [{ from: "static", to: "./static" }],
     }),
   ],
 };
