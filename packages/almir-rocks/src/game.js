@@ -244,7 +244,7 @@ class Game {
       this.gameWindow.classList.remove("lost");
       // change to display = block must bome before ball.offsetHeight
       // because offsetHeight for elements not in the DOM will be 0
-      this.ball.style.display = "block";
+      this.ball.style.display = "flex";
       this.ball.style.left =
         this.getElementOffsetLeft(this.pad) +
         (this.pad.offsetWidth - this.ball.offsetWidth / 2) +
@@ -441,7 +441,7 @@ class Game {
 
   victory() {
     this.state = State.WIN;
-    let pauseIcon = this.ball.querySelector("i");
+    let pauseIcon = this.ball.querySelector("svg");
     pauseIcon.parentElement.removeChild(pauseIcon);
 
     this.ball.style.setProperty(

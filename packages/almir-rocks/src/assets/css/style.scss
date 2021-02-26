@@ -231,10 +231,11 @@ span.annotated-comment.stockholm {
       height: 20px;
       background: $primary-color;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      i {
-        margin-left: 44px; // half of the pad - half of mine
-        margin-top: 3px;
+      svg {
         display: none;
       }
     }
@@ -243,7 +244,7 @@ span.annotated-comment.stockholm {
   &.lost {
     div.pad-wrapper {
       #pad {
-        i {
+        svg {
           display: block;
         }
       }
@@ -266,7 +267,7 @@ span.annotated-comment.stockholm {
 
     #ball {
       background-color: $icy-ice-blue;
-      i {
+      svg {
         display: inline-block;
         opacity: 1;
       }
@@ -282,15 +283,16 @@ span.annotated-comment.stockholm {
     border-radius: 100%;
     left: 50%;
     bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &.victory {
       animation: createBox 0.25s forwards;
     }
 
-    i {
+    svg {
       transition: opacity 0.3s, color 2s;
-      margin-top: 13px;
-      margin-left: 13px;
       color: $primary-text-color;
       opacity: 0;
     }
