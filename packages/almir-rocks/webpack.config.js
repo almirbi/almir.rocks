@@ -1,5 +1,6 @@
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
 module.exports = {
-  entry: "./src/index.js",
   mode: "development",
   output: {
     path: `${__dirname}/dist`,
@@ -21,4 +22,15 @@ module.exports = {
     contentBase: "./dist/",
     port: 9000,
   },
+  entry: {
+    index: "./src/index.js",
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "./src/index.html",
+      inject: true,
+      chunks: ["index"],
+      filename: "index.html",
+    }),
+  ],
 };
