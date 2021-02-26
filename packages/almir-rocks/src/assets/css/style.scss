@@ -680,19 +680,30 @@ textarea.form-control {
   margin: 0;
   text-transform: uppercase;
   font-family: Raleway, sans-serif;
-}
 
-.navbar-custom,
-.navbar-custom .dropdown-menu {
-  padding: 0;
+  .navbar-collapse {
+    flex-grow: 0;
+
+    ul {
+      li {
+        margin: 8px 0;
+        @include respond-to(medium) {
+          margin: 0 8px;
+        }
+      }
+    }
+  }
 }
 
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-nav > li > a,
 .navbar-custom .navbar-nav .dropdown-menu > li > a {
-  font-size: 11px;
   letter-spacing: 3px;
   color: white;
+}
+
+.row {
+  justify-content: center;
 }
 
 .navbar-custom .nav li.active,
