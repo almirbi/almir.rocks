@@ -10,6 +10,7 @@
     "packages/*"
   ],
   "scripts": {
-    "start": "yarn workspace @almir/rocks serve"
+    "start": "yarn workspace @almir/rocks serve",
+    "deploy": "yarn workspace @almir/rocks deploy"
   }
 }

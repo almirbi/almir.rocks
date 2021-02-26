@@ -84,9 +84,11 @@ window.addEventListener(
 );
 
 resizeHomeSection();
-window.addEventListener("resize", () => {
+const resizeObserver = new ResizeObserver(() => {
   requestAnimationFrame(resizeHomeSection);
 });
+
+resizeObserver.observe(document.getElementById("home"));
 
 let links = [...document.querySelectorAll("a[href^='#']")];
 links.forEach((link) => {
