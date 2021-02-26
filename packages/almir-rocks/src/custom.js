@@ -51,7 +51,8 @@ window.addEventListener(
         iconWrap.className = "icon alive";
         image.alt = tech;
         image.title = tech;
-        image.src = "static/images/" + tech + ".svg";
+
+        image.src = require(`../static/images/${tech}.svg`).default;
         iconWrap.dataset.name = tech;
 
         iconWrap.appendChild(image);
